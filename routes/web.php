@@ -30,8 +30,6 @@ Route::get('/booking/{doctorId}',[HomepageController::class,'show'])->name('book
 //store booking
 Route::post('/booking/appointment',[HomepageController::class,'store'])->name('userAppointment');
 
-//e.g
-Route::get('/timeslot/{interval}/{start_time}/{end_time}', [HomepageController::class,'getTimeSlot']);
 
 //update profile user
 Route::resource('/user-profile',ProfileController::class);
