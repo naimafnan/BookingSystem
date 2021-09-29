@@ -13,7 +13,8 @@ class doctorController extends Controller
      */
     public function index()
     {
-        return view('admin.doctor.create');
+        return view('admin.doctor.index');
+
     }
 
     /**
@@ -24,6 +25,7 @@ class doctorController extends Controller
     public function create()
     {
         //
+        return view('admin.doctor.create');
     }
 
     /**

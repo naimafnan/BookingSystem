@@ -38,5 +38,5 @@ Route::post('/user-profile-update',[ProfileController::class,'update']);
 //get booking details
 Route::get('/myBooking',[HomepageController::class,'myBooking']);
 
-Route::resource('doctor', doctorController::class);
+Route::resource('/admin', doctorController::class);
 

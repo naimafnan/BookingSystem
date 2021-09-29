@@ -123,11 +123,13 @@ class HomepageController extends Controller
             $services=$request->get('service');
             //get all data from db
             $reserves=doctor::all();
+            $users=User::all();
             if($keyword){
                 $reserves=doctor::where("doc_service","LIKE","%".$keyword."%")
                 ->orWhere("cli_name","LIKE","%".$keyword."%")
                 ->orWhere("doc_specialist","LIKE","%".$keyword."%")
                 ->get();
+                $users=User::where("name","LIKE","%".$keyword."%");
             }
             if($location){
                 $reserves=doctor::where('doc_location','LIKE','%'.$location.'%')->get();
@@ -187,14 +189,33 @@ class HomepageController extends Controller
 
         // }
 
+        // $today = Carbon::today(); // 2017-04-01 00:00:00
+        // $allTimes = [];
+        // array_push($allTimes, $today->toTimeString()); //add the 00:00 time before looping
+        // for ($i = 0; $i <= 95; $i ++){ //95 loops will give you everything from 00:00 to 23:45
+        //     $today->addMinutes(15); // add 0, 15, 30, 45, 60, etc...
+        //     array_push($allTimes, $today->toTimeString()); // inserts the time into the array like 00:00:00, 00:15:00, 00:30:00, etc.
+        // }
         public function timeSlot(){
-            $time=new CarbonPeriod('08:00','15 minutes','13:00');
-            $slots=[];
-            foreach($time as $item){
-                array_push($slots,$item->format("h:i A"));
-            }
-            
-            return view('reserve.appointment',compact('times'));
+            // $time=new CarbonPeriod('08:00','15 minutes','13:00');
+            // $slots=[];
+            // foreach($time as $item){
+            //     array_push($slots,$item->format("h:i A"));
+            // }
+
+            // $dates=[];
+            // $slots=$start_time->diffInMinutes($end_time)/$interval;
+
+            // $dates[$start_time->toDateString()][]=$start_time->toTimeString();
+            // for($i=1;$i<=$slots;$i++){
+            //     $dates[$start_time->toDateString()][]=$start_time->addMinute($interval)->toTimeString();
+
+            // }
+            // dd($dates);
+
+            $start_time=Carbon::now();
+            $newDateTime=Carbon::now()->addMinutes(5);
+            return view('reserve.appointment',compact('dates'));
         }
         public function myBooking(){
             $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();
