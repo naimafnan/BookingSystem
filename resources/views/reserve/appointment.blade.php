@@ -3,6 +3,9 @@
 @section('content')
     
     <div class="container">
+        @foreach($errors->all() as $error)
+                <div class="alert alert-danger">{{$error}}</div>
+        @endforeach
         @if (Session::has('msg'))
             <div class="alert alert-success" role="alert">
                 {{ Session::get('msg') }}
@@ -25,13 +28,14 @@
                         <img src="/img/doc.png" style="background-size: cover; border-radius: 999px; height: 150px; width: 150px; margin: 0 auto 20px auto" class="card-img-top" class="img-fluid rounded" class="" alt="...">
                         <br>
                         <p class="lead">
-                            Name : {{ ucfirst($user->name) }}
+                            Name : {{ ucfirst($doctor->mydoctor->name) }}
                         </p>
                         <p class="lead"> 
-                            Degree : {{ $user->doctordetails->doc_career}}
+                            {{-- Degree : {{ $user->doctordetails->doc_career}} --}}
+                            Degree : {{ $doctor->doc_career}}
                         </p>
                         <p class="lead">
-                            Specialist : {{ $user->doctordetails->doc_specialist }}
+                            Specialist : {{ $doctor->doc_specialist }}
                         </p>
                     </div>
                 </div>
@@ -82,7 +86,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="doctorId" value="{{ $doctor_id }}"> 
-                        <input type="hidden" name="date" value="">
+                        <input type="hidden" name="doctorName" value="{{ $doctor->mydoctor->name }}"> 
                         @if (Auth::check())
                             <button type="submit" class="btn btn-success btn-lg main-blink">Proceed</button> 
                         @else

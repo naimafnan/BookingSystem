@@ -9,6 +9,7 @@ use App\Models\Time;
 use App\Models\Appointment;
 use DateTime;
 use Carbon\CarbonPeriod;
+use App\Mail\Appointments;
 class HomepageController extends Controller
 {
     /**
@@ -53,6 +54,7 @@ class HomepageController extends Controller
         // $date['date']=Carbon::createFromFormat('d/m/Y',$request->date)->format('Y-m-d');
         // $date_variable = Carbon::createFromFormat('d-m-Y', $request->input('date'))->format('Y-m-d');
         // $date=Carbon::createFromFormat('d-m-y',$request->date->format('Y-m-d'));
+        $request->validate(['time'=>'required']);
         $check=$this->checkBookingTimeInterval();
         if($check){
             return redirect()->back()->with('errmsg','You have already booked an appointment');
@@ -77,9 +79,10 @@ class HomepageController extends Controller
      */
     public function show($doctorId)
     {
-        $user=User::where('id',$doctorId)->first();
+
+        $doctor=doctor::where('id',$doctorId)->first();
         $doctor_id=$doctorId;
-        return view('reserve.appointment',compact('user','doctor_id'));
+        return view('reserve.appointment',compact('doctor','doctor_id'));
     }
 
     /**
@@ -116,23 +119,17 @@ class HomepageController extends Controller
         //
     }
     public function search(Request $request){
-        $keyword=$request->get('keyword');
-            $location=$request->get('location');
+            $keyword=$request->get('keyword');
             $cli_name=$request->get('clinic');
             $address=$request->get('add');
             $services=$request->get('service');
             //get all data from db
             $reserves=doctor::all();
-            $users=User::all();
             if($keyword){
                 $reserves=doctor::where("doc_service","LIKE","%".$keyword."%")
                 ->orWhere("cli_name","LIKE","%".$keyword."%")
                 ->orWhere("doc_specialist","LIKE","%".$keyword."%")
                 ->get();
-                $users=User::where("name","LIKE","%".$keyword."%");
-            }
-            if($location){
-                $reserves=doctor::where('doc_location','LIKE','%'.$location.'%')->get();
             }
             if($cli_name){
                 $reserves=doctor::where('cli_name','LIKE','%'.$cli_name.'%')->get();
@@ -147,56 +144,11 @@ class HomepageController extends Controller
                 ->orWhere("doc_address4","LIKE","%".$address."%")
                 ->orWhere("doc_postcode","LIKE","%".$address."%")
                 ->orWhere("doc_state","LIKE","%".$address."%")
-                ->orWhere("doc_location","LIKE","%".$address."%")
                 ->get();
             }
             return view('reserve.search',compact('reserves'));
         }
-
-        public function checkTime(Request $request){
-            
-            //get date as input
-            $date=$request->get('date');
-            // $start_time=doctor::where('start_time',$start_time);
-            // $reserves=doctor::where('start_time',$start_time)->get();
-            //logic query : where start_time + duration 1 hour(timeType) 
-            // $newYear = new Carbon('first day of January 2016');
-            return view('reserve.checkdate',compact('date'));
-        }
-
-        // public function getTimeSlot($interval,$start_time,$end_time){
-        //     //create time slot available doctor
-        //     // $start=new DateTime($start_time);
-        //     // $end=new DateTime($end_time);
-        //     // $startTime=$start->format('H:i');
-        //     // $endTime=$end->format('H:i');
-
-        //     // $i=0;
-        //     // $time=[];
-
-        //     // while(strtotime($startTime)<=strtotime($endTime)){
-        //     //     $start=$startTime;
-        //     //     $end=date('H:i',strtotime('+'.$interval.'minutes',strtotime($startTime)));
-        //     //     $startTime=date('H:i',strtotime('+'.$interval.'minutes',strtotime($startTime)));
-        //     //     $i++;
-        //     //     if(strtotime($startTime)<=strtotime($endTime)){
-        //     //         $time[$i]['start_time']=$start;
-        //     //         $time[$i]['end_time']=$end;
-        //     //     }
-        //     // }   
-
-
-
-        // }
-
-        // $today = Carbon::today(); // 2017-04-01 00:00:00
-        // $allTimes = [];
-        // array_push($allTimes, $today->toTimeString()); //add the 00:00 time before looping
-        // for ($i = 0; $i <= 95; $i ++){ //95 loops will give you everything from 00:00 to 23:45
-        //     $today->addMinutes(15); // add 0, 15, 30, 45, 60, etc...
-        //     array_push($allTimes, $today->toTimeString()); // inserts the time into the array like 00:00:00, 00:15:00, 00:30:00, etc.
-        // }
-        public function timeSlot(){
+        public function timeSlot(Request $request){
             // $time=new CarbonPeriod('08:00','15 minutes','13:00');
             // $slots=[];
             // foreach($time as $item){
@@ -213,9 +165,17 @@ class HomepageController extends Controller
             // }
             // dd($dates);
 
-            $start_time=Carbon::now();
-            $newDateTime=Carbon::now()->addMinutes(5);
-            return view('reserve.appointment',compact('dates'));
+            // $start_time=Carbon::now();
+            // $newDateTime=Carbon::now()->addMinutes(5);
+            // return view('reserve.appointment',compact('dates'));
+            
+            // 1. get request from db $start_time & $end_time & interval(duration each appointment)
+            // 2. change to time format data from request 
+            // 3. while loop to add interval on start time and stop before end_time
+            // 4. return view time
+            // $doctor=$request->get('doctorId');
+            // $times=doctor::where('id',$doctor)->orWhere('start_time',$request->$start_time)->first();
+            // dd($times);
         }
         public function myBooking(){
             $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();
@@ -226,7 +186,7 @@ class HomepageController extends Controller
         {
             return Appointment::orderby('id','desc')
                 ->where('user_id',auth()->user()->id)
-                ->whereDate('created_at',date('Y-m-d'))
+                ->whereDate('date',date('Y-m-d'))
                 ->exists();
         }
 

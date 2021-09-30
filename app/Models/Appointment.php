@@ -13,7 +13,7 @@ class Appointment extends Model
     }
     //get doctor name relation between appointment with user table 
     public function appUser(){
-        return $this->belongsTo(User::class,'doctor_id','id');
+        return $this->belongsTo(User::class,'doctor_id','id'); //salah sbb doctor id dekat appointment tak sama id di user
     }
     //relation between appointment with doctor
     public function docApp(){

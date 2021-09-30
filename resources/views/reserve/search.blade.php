@@ -63,11 +63,11 @@
                             <p class="card-text">{{ $reserve->doc_specialist }}</p>
                             <p class="card-text text-black-50">Location</p>
                             <p class="card-text">{{ $reserve->cli_name }}</p>
-                            <p class="card-text">{{ $reserve->doc_address1 }}{{ $reserve->doc_address2 }}{{ $reserve->doc_address3 }}{{ $reserve->doc_state }}</p>
+                            <p class="card-text">{{ $reserve->doc_address1 }},{{ $reserve->doc_address2 }},{{ $reserve->doc_address3 }},{{ $reserve->doc_state }}</p>
                             {{-- <p class="card-text">{{ $reserve->doc_location }}</p> --}}
                         </div>
                         <div class="card-footer bg-transparent">
-                                <a href="{{ route('booking',[$reserve->user_id]) }}" class="btn btn-primary">Book Appointment</a>
+                                <a href="{{ route('booking',[$reserve->id]) }}" class="btn btn-primary">Book Appointment</a>
                         </div>
                     </div>
                 </div>
