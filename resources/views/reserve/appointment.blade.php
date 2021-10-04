@@ -87,6 +87,13 @@
                         </div>
                         <input type="hidden" name="doctorId" value="{{ $doctor_id }}"> 
                         <input type="hidden" name="doctorName" value="{{ $doctor->mydoctor->name }}"> 
+                        <input type="hidden" name="clinicName" value="{{ $doctor->cli_name }}"> 
+                        <input type="hidden" name="docAdd1" value="{{ $doctor->doc_address1 }}"> 
+                        <input type="hidden" name="docAdd2" value="{{ $doctor->doc_address2 }}"> 
+                        <input type="hidden" name="docAdd3" value="{{ $doctor->doc_address3 }}"> 
+                        <input type="hidden" name="docAdd4" value="{{ $doctor->doc_address4 }}"> 
+                        <input type="hidden" name="docPostcode" value="{{ $doctor->doc_postcode }}"> 
+                        <input type="hidden" name="docState" value="{{ $doctor->doc_state }}"> 
                         @if (Auth::check())
                             <button type="submit" class="btn btn-success btn-lg main-blink">Proceed</button> 
                         @else

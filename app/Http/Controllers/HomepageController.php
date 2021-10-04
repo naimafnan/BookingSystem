@@ -9,7 +9,9 @@ use App\Models\Time;
 use App\Models\Appointment;
 use DateTime;
 use Carbon\CarbonPeriod;
-use App\Mail\Appointments;
+use App\Mail\Notification;
+use Illuminate\Support\Facades\Mail;
+
 class HomepageController extends Controller
 {
     /**
@@ -68,6 +70,23 @@ class HomepageController extends Controller
             'date'=>$date,
             'status'=>0,
         ]);
+        //send email notification
+        $appointment=Appointment::all();
+        $notificationBooking=[
+            'name'=>auth()->user()->name,
+            'time'=>$time,
+            'date'=>$date,
+            'doctor_name'=>request()->get('doctorName'),
+            'cli_name'=>request()->get('clinicName'),
+            'doctor_add1'=>request()->get('docAdd1'),
+            'doctor_add2'=>request()->get('docAdd2'),
+            'doctor_add3'=>request()->get('docAdd3'),
+            'doctor_add4'=>request()->get('docAdd4'),
+            'doctor_postcode'=>request()->get('docPostcode'),
+            'doctor_state'=>request()->get('docState')
+            
+        ];
+        Mail::to(auth()->user()->email)->send(new \App\Mail\Notification($notificationBooking));
         return redirect()->back()->with('msg','Your appointment was booked');
     }
 
@@ -173,20 +192,29 @@ class HomepageController extends Controller
             // 2. change to time format data from request 
             // 3. while loop to add interval on start time and stop before end_time
             // 4. return view time
+
             // $doctor=$request->get('doctorId');
             // $times=doctor::where('id',$doctor)->orWhere('start_time',$request->$start_time)->first();
             // dd($times);
+
+            // $result = DB::table('users')->select('groupName')->where('username', $username)->first();
+            // return $result->groupName; 
+
+            // $time=doctor::all();
+            // $start_time={{ $time->start_time }};
+            // $start_times=$request->get('doc_start_time');
+            // return view('reserve.appointment',compact('start_times'));
         }
         public function myBooking(){
             $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();
-            return view('booking.index',compact('appointments'));
+            return view('booking.bookingDetails',compact('appointments'));
         }
 
         public function checkBookingTimeInterval()
         {
             return Appointment::orderby('id','desc')
                 ->where('user_id',auth()->user()->id)
-                ->whereDate('date',date('Y-m-d'))
+                ->whereDate('created_at',date('Y-m-d'))
                 ->exists();
         }
 

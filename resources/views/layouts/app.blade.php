@@ -172,7 +172,9 @@
     $( function() {
         $("#datepicker").datepicker({
             dateFormat:"dd-mm-yy",
-            beforeShowDay: $.datepicker.noWeekends,
+            // beforeShowDay: $.datepicker.noWeekends,
+            dayNamesMin: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
+            inline: true,
             minDate:0,
             onSelect: function(dateText) {
                 display("Selected date: " + dateText + ", Current Selected Value= " + this.value);

@@ -40,3 +40,6 @@ Route::get('/myBooking',[HomepageController::class,'myBooking']);
 
 Route::resource('/admin', doctorController::class);
 
+//checkout
+// Route::
+

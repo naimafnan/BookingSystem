@@ -21,9 +21,9 @@
                             <h5 class="card-text">{{ $appointment->docApp->cli_name }}</h5>
                             <h6 class="card-title text-black-50">Status :</h6>
                                 @if($appointment->status==0)
-                                <button class="btn btn-primary">Not visited</button>
+                                <h5 class="">Not visited</h5>
                                 @else 
-                                <button class="btn btn-success"> Cheked</button>
+                                <h5 class=""> Checked</h5>
                                 @endif
                         
                     </div>
