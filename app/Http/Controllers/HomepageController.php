@@ -57,10 +57,10 @@ class HomepageController extends Controller
         // $date_variable = Carbon::createFromFormat('d-m-Y', $request->input('date'))->format('Y-m-d');
         // $date=Carbon::createFromFormat('d-m-y',$request->date->format('Y-m-d'));
         $request->validate(['time'=>'required']);
-        $check=$this->checkBookingTimeInterval();
-        if($check){
-            return redirect()->back()->with('errmsg','You have already booked an appointment');
-        }
+        // $check=$this->checkBookingTimeInterval();
+        // if($check){
+        //     return redirect()->back()->with('errmsg','You have already booked an appointment');
+        // }
         $date=Carbon::parse($request->dateText);
         $time=Carbon::parse($request->time); 
         Appointment::create([
@@ -207,7 +207,13 @@ class HomepageController extends Controller
         }
         public function myBooking(){
             $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();
+            // $appointments=Appointment::all();
             return view('booking.bookingDetails',compact('appointments'));
+        }
+        public function BookingDetails($appointmentsId){
+            $appointments=Appointment::where('id',$appointmentsId)->first();
+            $appointments_id=$appointmentsId;
+            return view('booking.index',compact('appointments','appointments_id'));
         }
 
         public function checkBookingTimeInterval()

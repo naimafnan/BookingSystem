@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <!--for datepicker-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"defer></script>
@@ -19,6 +19,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    
 
     <!-- Styles -->
     <link href="{{ asset('css\app.css') }}" rel="stylesheet">
@@ -114,8 +115,6 @@
             @yield('content')
         </main>
         <footer class="page-footer font-small stylish-color-dark pt-4 " >
-
-            <!-- Footer Links -->
             <div class="container text-center text-md-left">
             <div class="row hide-for-small">
                 <div class="col medium-6 small-12 large-6"  >
@@ -129,10 +128,6 @@
                   </div>
                 </div>
               </div>
-        
-            
-            <!-- Copyright -->
-          
         </footer>
     </div>
     <script>
@@ -185,7 +180,7 @@
             });
     
         function display(msg) {
-                $("<p>").html(msg).appendTo(document.body);
+                // $("<p>").html(msg).appendTo(document.body);
         }
     });
     

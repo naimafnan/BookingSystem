@@ -73,7 +73,7 @@
                             <div class="col-xl-12 mb-3">
                                 <label class="btn btn-outline-primary">
                                     <input type="radio" name="time" value="9.30A.M.">
-                                    <span>9.30 A.M</span>
+                                    <span>9.30 A.M.</span>
                                 </label>
                                 <label class="btn btn-outline-primary">
                                     <input type="radio" name="time" value="10.30A.M.">
