@@ -18,7 +18,7 @@
                 @else 
                   <b><p class="" style="font-size:18px;font-family: Arial, Helvetica, sans-serif;"> Checked</p></b>
                 @endif
-              <a href="{{ url('/BookingDetails',[$appointment->id]) }}" style="text-align: right">click</a>
+              <a href="{{ url('/BookingDetails',[$appointment->id]) }}" style="text-align: right">View Details</a>
             </div>
         </div>
       @empty

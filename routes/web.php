@@ -6,6 +6,8 @@ use App\Http\Controllers\doctorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +22,8 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//route for admin and doctor
+Route::get('/dashboard',[\App\Http\Controllers\DashboardController::class,'index']);
 //display list doctor
 Route::resource('/', HomepageController::class);
 Route::get('/', [HomepageController::class,'index']);
@@ -39,7 +43,7 @@ Route::post('/user-profile-update',[ProfileController::class,'update']);
 Route::get('/myBooking',[HomepageController::class,'myBooking']);
 Route::get('/BookingDetails/{appointmentsId}',[HomepageController::class,'BookingDetails']);
 
-Route::resource('/admin', doctorController::class);
+Route::resource('/doctor', doctorController::class);
 
 //checkout
 // Route::

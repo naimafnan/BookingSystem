@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class doctorController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class doctorController extends Controller
      */
     public function index()
     {
-        return view('admin.doctor.index');
+        $users  = User::where('role_id','!=',3)->get();
+        return view('admin.doctor.index',compact('users'));
 
     }
 
