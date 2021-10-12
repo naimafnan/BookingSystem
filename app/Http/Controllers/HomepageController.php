@@ -61,8 +61,8 @@ class HomepageController extends Controller
         // if($check){
         //     return redirect()->back()->with('errmsg','You have already booked an appointment');
         // }
-        $date=Carbon::parse($request->dateText);
-        $time=Carbon::parse($request->time); 
+        $date=Carbon::parse($request->dateText)->format('Y-m-d');
+        $time=Carbon::parse($request->time)->format('H:i:s'); 
         Appointment::create([
             'user_id'=>auth()->user()->id,
             'doctor_id'=>$request->doctorId,
@@ -178,7 +178,7 @@ class HomepageController extends Controller
             // $slots=$start_time->diffInMinutes($end_time)/$interval;
 
             // $dates[$start_time->toDateString()][]=$start_time->toTimeString();
-            // for($i=1;$i<=$slots;$i++){
+            // for($i=1;$i<=$slots;$i++){zzzz
             //     $dates[$start_time->toDateString()][]=$start_time->addMinute($interval)->toTimeString();
 
             // }
@@ -204,6 +204,17 @@ class HomepageController extends Controller
             // $start_time={{ $time->start_time }};
             // $start_times=$request->get('doc_start_time');
             // return view('reserve.appointment',compact('start_times'));
+
+            // $times=doctor::select('start_time','end_time','start_rest_time','end_rest_time')->where('id',1)->get();
+            // $times=doctor::all();
+            // return view("reserve.appointment",compact('times'));
+
+            $periods=new CarbonPeriod('9:30','15 minutes','14:00');
+            $slots=[];
+            foreach($periods as $period){
+                array_push($slots,$period->format("h:i A"));
+            }
+            return view('reserve.appointment',compact('slots'));
         }
         public function myBooking(){
             $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();

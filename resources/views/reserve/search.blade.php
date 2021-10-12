@@ -53,6 +53,7 @@
                 <div class="col-sm-4 mb-3">
                     <div class="card text-center h-100">
                         <img src="/img/doc.png" style="background-size: cover; border-radius: 999px; height: 150px; width: 150px; margin: 0 auto 20px auto" class="card-img-top" class="img-fluid rounded" class="" alt="...">
+                        
                         <div class="card-body">
                             {{-- @foreach ($mydoctor as $doctor)
                             <h1 class="card-title">{{ $$mydoctor->mydoctor->name }}</h1>

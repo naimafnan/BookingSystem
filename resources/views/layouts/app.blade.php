@@ -77,11 +77,11 @@
                                     <a class="nav-link" href="{{ url('/myBooking') }}">My Booking</a>
                                 </li>
                             @endif
-                            @if (Auth::user()->role->name=="doctor")
+                            {{-- @if (Auth::user()->role->name=="doctor")
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/appointment') }}">Appointment</a>
                                 </li>
-                            @endif
+                            @endif --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">Contact Us</a>
                             </li>
@@ -91,11 +91,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if (Auth::user()->role->name=="patient")
                                         <a class="dropdown-item" href="{{ url('/user-profile') }}">
                                             Profile
                                         </a>
-                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

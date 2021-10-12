@@ -26,6 +26,18 @@
                             Doctor Information
                         </h4>
                         <img src="/img/doc.png" style="background-size: cover; border-radius: 999px; height: 150px; width: 150px; margin: 0 auto 20px auto" class="card-img-top" class="img-fluid rounded" class="" alt="...">
+                        <div class="rating">
+                            <input type="radio" name="rating" value="5" id="5">
+                                <label for="5">☆</label> 
+                            <input type="radio" name="rating" value="4" id="4">
+                                <label for="4">☆</label> 
+                            <input type="radio" name="rating" value="3" id="3">
+                                <label for="3">☆</label> 
+                            <input type="radio" name="rating" value="2" id="2">
+                                <label for="2">☆</label> 
+                            <input type="radio" name="rating" value="1" id="1">
+                                <label for="1">☆</label>
+                        </div>
                         <br>
                         <p class="lead">
                             Name : {{ ucfirst($doctor->mydoctor->name) }}
@@ -72,17 +84,20 @@
                         <div class="row">
                             <div class="col-xl-12 mb-3">
                                 <label class="btn btn-outline-primary">
-                                    <input type="radio" name="time" value="9.30A.M.">
+                                    <input type="radio" name="time" value="9:30 A.M.">
                                     <span>9.30 A.M.</span>
                                 </label>
                                 <label class="btn btn-outline-primary">
-                                    <input type="radio" name="time" value="10.30A.M.">
+                                    <input type="radio" name="time" value="10:30 A.M.">
                                     <span>10.30 A.M</span>
                                 </label>
+                                {{-- @foreach ($slots as $time)
                                 <label class="btn btn-outline-primary">
-                                    <input type="radio" name="time" value="2.30P.M.">
-                                    <span>2.30 P.M</span>
+                                    <input type="radio" name="time" value="2:30 P.M.">
+                                    <span>{{ $time }}</span>
                                 </label>
+                                @endforeach --}}
+                                
                             </div>
                         </div>
                         <input type="hidden" name="doctorId" value="{{ $doctor_id }}"> 
