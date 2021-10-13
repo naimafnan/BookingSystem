@@ -49,7 +49,7 @@
     <div class="container">
         
         <div class="row">
-            @foreach ($reserves as $reserve)
+            @forelse ($reserves as $reserve)
                 <div class="col-sm-4 mb-3">
                     <div class="card text-center h-100">
                         <img src="/img/doc.png" style="background-size: cover; border-radius: 999px; height: 150px; width: 150px; margin: 0 auto 20px auto" class="card-img-top" class="img-fluid rounded" class="" alt="...">
@@ -58,6 +58,7 @@
                             {{-- @foreach ($mydoctor as $doctor)
                             <h1 class="card-title">{{ $$mydoctor->mydoctor->name }}</h1>
                             @endforeach --}}
+                            
                             <h1 class="card-title text-black">{{ ucfirst($reserve->mydoctor->name) }}</h1>
                             <p class="card-text">{{ $reserve->doc_career }}</p>
                             <p class="card-text text-black-50">Specialty</p>
@@ -72,7 +73,9 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+            <h4>No doctors available yet</h4>
+            @endforelse
         </div>
     </div>
 </div>

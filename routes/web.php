@@ -31,6 +31,7 @@ Route::get('/search', [HomepageController::class,'search']);
 
 //display user choose specific doctor
 Route::get('/booking/{doctorId}',[HomepageController::class,'show'])->name('booking');
+Route::get('/time/{doctorId}',[HomepageController::class,'timeslot'])->name('booking');
 //store booking
 Route::post('/booking/appointment',[HomepageController::class,'store'])->name('userAppointment');
 

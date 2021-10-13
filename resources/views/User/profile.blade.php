@@ -35,10 +35,6 @@
                                     <label>Name</label>
                                     <input type="text" name="name" class="form-control" id="name" value="{{auth()->user()->name}}">
                                 </div>
-                                <div class="col-lg-6 mb-3">
-                                    <label>Name</label>
-                                    <input type="text" name="name" class="form-control" id="name" value="{{auth()->user()->name}}">
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label>E-mail</label>

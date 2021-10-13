@@ -10,7 +10,9 @@ use App\Models\Appointment;
 use DateTime;
 use Carbon\CarbonPeriod;
 use App\Mail\Notification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use SebastianBergmann\Timer\Duration;
 
 class HomepageController extends Controller
 {
@@ -61,6 +63,7 @@ class HomepageController extends Controller
         // if($check){
         //     return redirect()->back()->with('errmsg','You have already booked an appointment');
         // }
+        if(Auth::check()){
         $date=Carbon::parse($request->dateText)->format('Y-m-d');
         $time=Carbon::parse($request->time)->format('H:i:s'); 
         Appointment::create([
@@ -70,6 +73,9 @@ class HomepageController extends Controller
             'date'=>$date,
             'status'=>0,
         ]);
+        }else{
+            return view("auth.login");
+        }
         //send email notification
         $appointment=Appointment::all();
         $notificationBooking=[
@@ -99,8 +105,11 @@ class HomepageController extends Controller
     public function show($doctorId)
     {
 
-        $doctor=doctor::where('id',$doctorId)->first();
+        $doctor=doctor::where('id',$doctorId)
+            
+            ->first();
         $doctor_id=$doctorId;
+
         return view('reserve.appointment',compact('doctor','doctor_id'));
     }
 
@@ -167,7 +176,7 @@ class HomepageController extends Controller
             }
             return view('reserve.search',compact('reserves'));
         }
-        public function timeSlot(Request $request){
+        public function timeSlot($doctorId){
             // $time=new CarbonPeriod('08:00','15 minutes','13:00');
             // $slots=[];
             // foreach($time as $item){
@@ -209,12 +218,33 @@ class HomepageController extends Controller
             // $times=doctor::all();
             // return view("reserve.appointment",compact('times'));
 
-            $periods=new CarbonPeriod('9:30','15 minutes','14:00');
-            $slots=[];
-            foreach($periods as $period){
-                array_push($slots,$period->format("h:i A"));
-            }
-            return view('reserve.appointment',compact('slots'));
+            // $periods=new CarbonPeriod('9:30','15 minutes','14:00');
+            // $slots=[];
+            // foreach($periods as $period){
+            //     array_push($slots,$period->format("h:i A"));
+            // }
+            // return view('reserve.appointment',compact('slots'));
+            $times=doctor::where('start_time',$doctorId)->first();
+            dd($times);
+            // $start_times=$request->get('start_time');
+            // $end_times=$request->get('end_time');
+            // dd($start_times);
+            // $interval=15;
+            // $i=0;
+            //     while(strtotime($start_times)<=strtotime($end_times)){
+            //         $starts= $start_times;
+            //         $ends=date('H:i',strtotime('+'.$interval.'minutes',strtotime($start_times)));
+            //         $start_times=date('H:i',strtotime('+'.$interval.'minutes',strtotime($start_times)));
+            //         $i++;
+                    
+            //         if(strtotime($start_times)<=strtotime($end_times)){
+            //             $time[$i]['start_times']=$start_times;
+            //             $time[$i]['end_times']=$end_times;
+            //         }
+            //     }
+                
+                // return view('reserve.appointment',compact('time'));
+            
         }
         public function myBooking(){
             $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();
