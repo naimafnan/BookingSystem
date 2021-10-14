@@ -79,7 +79,12 @@ class ProfileController extends Controller
         $user->name=$request->input('name');
         $user->email=$request->input('email');
         // $user->password=$request->input('password');
-        $user->address=$request->input('address');
+        $user->address1=$request->input('address1');
+        $user->address2=$request->input('address2');
+        $user->address3=$request->input('address3');
+        $user->address4=$request->input('address4');
+        $user->postcode=$request->input('postcode');
+        $user->state=$request->input('state');
         $user->phone_number=$request->input('phone_number');
 
         //image

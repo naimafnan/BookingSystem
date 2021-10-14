@@ -31,21 +31,63 @@
                         <form action="{{ url('/user-profile-update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="col-lg-6 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label>Name</label>
                                     <input type="text" name="name" class="form-control" id="name" value="{{auth()->user()->name}}">
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>E-mail</label>
+                                    <input type="text" name="email" class="form-control" value="{{auth()->user()->email}}">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>E-mail</label>
-                                <input type="text" name="email" class="form-control" value="{{auth()->user()->email}}">
-                                
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label>Address1</label>
+                                    <input type="text" name="address1" class="form-control" value="{{auth()->user()->address1}}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Address2</label>
+                                    <input type="text" name="address2" class="form-control" value="{{auth()->user()->address2}}">
+                                </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label>Address</label>
-                                <input type="text" name="address" class="form-control" value="{{auth()->user()->address}}">
-                                
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label>Address3</label>
+                                    <input type="text" name="address3" class="form-control" value="{{auth()->user()->address3}}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Address4</label>
+                                    <input type="text" name="address4" class="form-control" value="{{auth()->user()->address4}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="">Postcode</label>
+                                    <input type="text" name="postcode" class="form-control @error('address') is-invalid @enderror" placeholder=""  value="{{auth()->user()->postcode}}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="">State</label>
+                                    <select name="state" id="STATE" class="form-control" onchange="change_state();" required="">
+                                        <option value="">Select State</option>
+                                        <option value="Johor">JOHOR</option>
+                                        <option value="Kedah">KEDAH</option>
+                                        <option value="Kelantan">KELANTAN</option>
+                                        <option value="Kuala Lumpur">KUALA LUMPUR</option>
+                                        <option value="Melaka">MELAKA</option>
+                                        <option value="Negeri Sembilan">NEGERI SEMBILAN</option>
+                                        <option value="Pahang">PAHANG</option>
+                                        <option value="Perak">PERAK</option>
+                                        <option value="Perlis">PERLIS</option>
+                                        <option value="Pulau Pinang">PULAU PINANG</option>
+                                        <option value="Sabah">SABAH</option>
+                                        <option value="Sarawak">SARAWAK</option>
+                                        <option value="Terengganu">TERENGGANU</option>
+                                        <option value="Selangor">SELANGOR</option>
+                                        <option value="Putrajaya">PUTRAJAYA</option>
+                                        <option value="Labuan">LABUAN</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Phone number</label>

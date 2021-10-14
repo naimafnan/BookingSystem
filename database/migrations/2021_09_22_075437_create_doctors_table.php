@@ -24,12 +24,12 @@ class CreateDoctorsTable extends Migration
             $table->string('cli_name')->nullable();;
             $table->string('doc_service')->nullable();;
             $table->string('doc_career')->nullable();;
-            $table->string('doc_address1')->nullable();;
-            $table->string('doc_address2')->nullable();;
-            $table->string('doc_address3')->nullable();;
-            $table->string('doc_address4')->nullable();;
-            $table->string('doc_postcode')->nullable();;
-            $table->string('doc_state')->nullable();;
+            // $table->string('doc_address1')->nullable();;
+            // $table->string('doc_address2')->nullable();;
+            // $table->string('doc_address3')->nullable();;
+            // $table->string('doc_address4')->nullable();;
+            // $table->string('doc_postcode')->nullable();;
+            // $table->string('doc_state')->nullable();;
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
             $table->time('start_rest_time')->nullable();

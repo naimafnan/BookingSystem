@@ -16,7 +16,7 @@
                             <h6 class="card-title text-black-50">Date</h6>
                             <h5 class="card-text">{{ $appointments->date }}</h5>
                             <h6 class="card-title text-black-50">Location</h6>
-                            <h5 class="card-text">{{ $appointments->docApp->doc_address1 }},{{ $appointments->docApp->doc_address2 }},{{ $appointments->docApp->doc_address3 }},{{ $appointments->docApp->doc_address4 }},{{ $appointments->docApp->doc_postcode }},{{ $appointments->docApp->doc_state }}</h5>
+                            <h5 class="card-text">{{ $appointments->appUser->address1 }},{{ $appointments->appUser->address2 }},{{ $appointments->appUser->address3 }},{{ $appointments->appUser->address4 }},{{ $appointments->appUser->postcode }},{{ $appointments->appUser->state }}</h5>
                             <h6 class="card-title text-black-50">Clinic's name</h6>
                             <h5 class="card-text">{{ $appointments->docApp->cli_name }}</h5>
                             <h6 class="card-title text-black-50">Status</h6>

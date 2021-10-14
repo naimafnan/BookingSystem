@@ -63,7 +63,6 @@ class HomepageController extends Controller
         // if($check){
         //     return redirect()->back()->with('errmsg','You have already booked an appointment');
         // }
-        if(Auth::check()){
         $date=Carbon::parse($request->dateText)->format('Y-m-d');
         $time=Carbon::parse($request->time)->format('H:i:s'); 
         Appointment::create([
@@ -73,9 +72,6 @@ class HomepageController extends Controller
             'date'=>$date,
             'status'=>0,
         ]);
-        }else{
-            return view("auth.login");
-        }
         //send email notification
         $appointment=Appointment::all();
         $notificationBooking=[
@@ -104,13 +100,11 @@ class HomepageController extends Controller
      */
     public function show($doctorId)
     {
-
-        $doctor=doctor::where('id',$doctorId)
-            
-            ->first();
+        $appointments=Appointment::where('doctor_id',$doctorId)->first();
+        $doctor=doctor::where('id',$doctorId)->first();
         $doctor_id=$doctorId;
 
-        return view('reserve.appointment',compact('doctor','doctor_id'));
+        return view('reserve.appointment',compact('doctor','doctor_id','appointments'));
     }
 
     /**
@@ -154,9 +148,12 @@ class HomepageController extends Controller
             //get all data from db
             $reserves=doctor::all();
             if($keyword){
-                $reserves=doctor::where("doc_service","LIKE","%".$keyword."%")
+                $reserves=doctor::where("name","LIKE","%".$keyword."%")
                 ->orWhere("cli_name","LIKE","%".$keyword."%")
                 ->orWhere("doc_specialist","LIKE","%".$keyword."%")
+                ->get();
+                $reserves=doctor::where("*")
+                ->with('mydoctor')
                 ->get();
             }
             if($cli_name){
@@ -166,85 +163,15 @@ class HomepageController extends Controller
                 $reserves=doctor::where('doc_service','LIKE','%'.$services.'%')->get();
             }
             if($address){
-                $reserves=doctor::where('doc_address1','LIKE','%'.$address.'%')
-                ->orWhere("doc_address2","LIKE","%".$address."%")
-                ->orWhere("doc_address3","LIKE","%".$address."%")
-                ->orWhere("doc_address4","LIKE","%".$address."%")
-                ->orWhere("doc_postcode","LIKE","%".$address."%")
-                ->orWhere("doc_state","LIKE","%".$address."%")
+                $reserves=doctor::where('address1','LIKE','%'.$address.'%')
+                ->orWhere("address2","LIKE","%".$address."%")
+                ->orWhere("address3","LIKE","%".$address."%")
+                ->orWhere("address4","LIKE","%".$address."%")
+                ->orWhere("postcode","LIKE","%".$address."%")
+                ->orWhere("state","LIKE","%".$address."%")
                 ->get();
             }
             return view('reserve.search',compact('reserves'));
-        }
-        public function timeSlot($doctorId){
-            // $time=new CarbonPeriod('08:00','15 minutes','13:00');
-            // $slots=[];
-            // foreach($time as $item){
-            //     array_push($slots,$item->format("h:i A"));
-            // }
-
-            // $dates=[];
-            // $slots=$start_time->diffInMinutes($end_time)/$interval;
-
-            // $dates[$start_time->toDateString()][]=$start_time->toTimeString();
-            // for($i=1;$i<=$slots;$i++){zzzz
-            //     $dates[$start_time->toDateString()][]=$start_time->addMinute($interval)->toTimeString();
-
-            // }
-            // dd($dates);
-
-            // $start_time=Carbon::now();
-            // $newDateTime=Carbon::now()->addMinutes(5);
-            // return view('reserve.appointment',compact('dates'));
-            
-            // 1. get request from db $start_time & $end_time & interval(duration each appointment)
-            // 2. change to time format data from request 
-            // 3. while loop to add interval on start time and stop before end_time
-            // 4. return view time
-
-            // $doctor=$request->get('doctorId');
-            // $times=doctor::where('id',$doctor)->orWhere('start_time',$request->$start_time)->first();
-            // dd($times);
-
-            // $result = DB::table('users')->select('groupName')->where('username', $username)->first();
-            // return $result->groupName; 
-
-            // $time=doctor::all();
-            // $start_time={{ $time->start_time }};
-            // $start_times=$request->get('doc_start_time');
-            // return view('reserve.appointment',compact('start_times'));
-
-            // $times=doctor::select('start_time','end_time','start_rest_time','end_rest_time')->where('id',1)->get();
-            // $times=doctor::all();
-            // return view("reserve.appointment",compact('times'));
-
-            // $periods=new CarbonPeriod('9:30','15 minutes','14:00');
-            // $slots=[];
-            // foreach($periods as $period){
-            //     array_push($slots,$period->format("h:i A"));
-            // }
-            // return view('reserve.appointment',compact('slots'));
-            $times=doctor::where('start_time',$doctorId)->first();
-            dd($times);
-            // $start_times=$request->get('start_time');
-            // $end_times=$request->get('end_time');
-            // dd($start_times);
-            // $interval=15;
-            // $i=0;
-            //     while(strtotime($start_times)<=strtotime($end_times)){
-            //         $starts= $start_times;
-            //         $ends=date('H:i',strtotime('+'.$interval.'minutes',strtotime($start_times)));
-            //         $start_times=date('H:i',strtotime('+'.$interval.'minutes',strtotime($start_times)));
-            //         $i++;
-                    
-            //         if(strtotime($start_times)<=strtotime($end_times)){
-            //             $time[$i]['start_times']=$start_times;
-            //             $time[$i]['end_times']=$end_times;
-            //         }
-            //     }
-                
-                // return view('reserve.appointment',compact('time'));
-            
         }
         public function myBooking(){
             $appointments = Appointment::latest()->where('user_id',auth()->user()->id)->get();

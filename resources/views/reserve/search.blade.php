@@ -65,7 +65,7 @@
                             <p class="card-text">{{ $reserve->doc_specialist }}</p>
                             <p class="card-text text-black-50">Location</p>
                             <p class="card-text">{{ $reserve->cli_name }}</p>
-                            <p class="card-text">{{ $reserve->doc_address1 }},{{ $reserve->doc_address2 }},{{ $reserve->doc_address3 }},{{ $reserve->doc_state }}</p>
+                            <p class="card-text">{{ $reserve->mydoctor->address1 }},{{ $reserve->mydoctor->address2 }},{{ $reserve->mydoctor->address3 }},{{ $reserve->mydoctor->address4 }},{{ $reserve->mydoctor->postcode }},{{ $reserve->mydoctor->state }}</p>
                             {{-- <p class="card-text">{{ $reserve->doc_location }}</p> --}}
                         </div>
                         <div class="card-footer bg-transparent">
