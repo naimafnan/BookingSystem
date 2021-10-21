@@ -76,7 +76,7 @@
                                 <div class="nav-lavel">Create Appointment</div>
                                     <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Appointment Time</span></a>
                                     <div class="submenu-content">
-                                        <a href="" class="menu-item">Create</a>
+                                        <a href="{{ route('doctor.create') }}" class="menu-item">Schedule Timings</a>
                                         <a href="" class="menu-item">Check</a>
                                     </div>
                                 </div>
@@ -95,8 +95,8 @@
                                 <div class="nav-item has-sub">
                                     <a href="#"><i class="ik ik-box"></i><span>Doctor</span></a>
                                     <div class="submenu-content">
-                                        <a href="{{ route('doctor.create') }}" class="menu-item">Create</a>
-                                        <a href="{{ route('doctor.index') }}" class="menu-item">View</a>
+                                        <a href="{{ route('admin.create') }}" class="menu-item">Create</a>
+                                        <a href="{{ route('admin.index') }}" class="menu-item">View</a>
                                     </div>
                                 </div>
                               @endif

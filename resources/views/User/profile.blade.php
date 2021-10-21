@@ -19,7 +19,7 @@
                     </div>
                 </div>
             @endif --}}
-            <div class="col-md-6 mb-3">
+            <div class="col-lg-8 mb-3">
                 @if (Session::has('success'))
                         <div class="alert alert-success" role="alert">
                             {{ Session::get('success') }}
@@ -32,43 +32,35 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label>Name</label>
-                                    <input type="text" name="name" class="form-control" id="name" value="{{auth()->user()->name}}">
+                                    <input type="text" name="name" class="form-control" id="name" value="{{auth()->user()->name}}" placeholder="Name">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label>E-mail</label>
-                                    <input type="text" name="email" class="form-control" value="{{auth()->user()->email}}">
+                                    <input type="text" name="email" class="form-control" value="{{auth()->user()->email}}" placeholder="E-mail">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label>Address1</label>
-                                    <input type="text" name="address1" class="form-control" value="{{auth()->user()->address1}}">
+                                    <input type="text" name="address1" class="form-control" value="{{auth()->user()->address1}}" placeholder="Address 1">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label>Address2</label>
-                                    <input type="text" name="address2" class="form-control" value="{{auth()->user()->address2}}">
+                                    <input type="text" name="address2" class="form-control" value="{{auth()->user()->address2}}" placeholder="Address 2">
                                 </div>
                             </div>
                             
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label>Address3</label>
-                                    <input type="text" name="address3" class="form-control" value="{{auth()->user()->address3}}">
+                                    <input type="text" name="address3" class="form-control" value="{{auth()->user()->address3}}" placeholder="Address 3">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label>Address4</label>
-                                    <input type="text" name="address4" class="form-control" value="{{auth()->user()->address4}}">
+                                    <input type="text" name="address4" class="form-control" value="{{auth()->user()->address4}}" placeholder="Address 4">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="">Postcode</label>
-                                    <input type="text" name="postcode" class="form-control @error('address') is-invalid @enderror" placeholder=""  value="{{auth()->user()->postcode}}">
+                                    <input type="text" name="postcode" class="form-control @error('address') is-invalid @enderror" placeholder="Postcode"  value="{{auth()->user()->postcode}}">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="">State</label>
-                                    <select name="state" id="STATE" class="form-control" onchange="change_state();" required="">
+                                    <select name="state" id="STATE" class="form-control" onchange="change_state();">
                                         <option value="">Select State</option>
                                         <option value="Johor">JOHOR</option>
                                         <option value="Kedah">KEDAH</option>
@@ -90,8 +82,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Phone number</label>
-                                <input type="text" name="phone_number" class="form-control" value="{{auth()->user()->phone_number}}">
+                                <input type="text" name="phone_number" class="form-control" value="{{auth()->user()->phone_number}}" placeholder="Phone number">
                                 
                             </div>
                             @if (Auth::user()->role->name=="doctor")

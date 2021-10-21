@@ -48,7 +48,7 @@
             <span>&nbsp;</span>
             <input type="text" class="form-control" name="keyword" placeholder="Enter Doctor,Clinic,Speicalist,etc.. " id="keyword" >
             <span>&nbsp;</span>
-            <button type="submit" class="btn btn-outline-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Search</button>
             <span>&nbsp;</span>
         </form>
     </div>

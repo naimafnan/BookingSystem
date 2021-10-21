@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<div class="container" >
     <div class="row text-center">
         <div class="col-12 text-center">
             <h1>A New Experience with Booking</h1>
@@ -42,7 +42,7 @@
             <span>&nbsp;</span>
             <input type="text" class="form-control" name="keyword" placeholder="Enter Doctor,Clinic,etc.. " id="keyword" >
             <span>&nbsp;</span>
-            <button type="submit" class="btn btn-outline-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Search</button>
             <span>&nbsp;</span>
         </form>
     </div>    

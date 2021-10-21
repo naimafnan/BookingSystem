@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container" >
         <div class="row">
             {{-- @foreach ($appointments as $key=>$appointment) --}}
             <div class="col-md-8 mb-3">

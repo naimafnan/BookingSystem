@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\User;
-class doctorController extends Controller
+use Illuminate\Http\Request;
+
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,9 @@ class doctorController extends Controller
      */
     public function index()
     {
-        return view('doctor.reservation');
-
+        //
+        $users  = User::where('role_id','!=',3)->get();
+        return view('admin.doctor.index',compact('users'));
     }
 
     /**
@@ -25,7 +26,7 @@ class doctorController extends Controller
     public function create()
     {
         //
-        return view('doctor.reservation');
+        return view('admin.doctor.create');
     }
 
     /**
@@ -83,6 +84,4 @@ class doctorController extends Controller
     {
         //
     }
-
-    
 }

@@ -58,7 +58,9 @@ class HomepageController extends Controller
         // $date['date']=Carbon::createFromFormat('d/m/Y',$request->date)->format('Y-m-d');
         // $date_variable = Carbon::createFromFormat('d-m-Y', $request->input('date'))->format('Y-m-d');
         // $date=Carbon::createFromFormat('d-m-y',$request->date->format('Y-m-d'));
+        $request->validate(['dateText'=>'required']);
         $request->validate(['time'=>'required']);
+        //validate 1 booking only
         // $check=$this->checkBookingTimeInterval();
         // if($check){
         //     return redirect()->back()->with('errmsg','You have already booked an appointment');
@@ -100,7 +102,7 @@ class HomepageController extends Controller
      */
     public function show($doctorId)
     {
-        $appointments=Appointment::where('doctor_id',$doctorId)->first();
+        $appointments=Appointment::where('doctor_id',$doctorId)->get();
         $doctor=doctor::where('id',$doctorId)->first();
         $doctor_id=$doctorId;
 
@@ -148,13 +150,13 @@ class HomepageController extends Controller
             //get all data from db
             $reserves=doctor::all();
             if($keyword){
-                $reserves=doctor::where("name","LIKE","%".$keyword."%")
+                $reserves=doctor::where("cli_name","LIKE","%".$keyword."%")
                 ->orWhere("cli_name","LIKE","%".$keyword."%")
                 ->orWhere("doc_specialist","LIKE","%".$keyword."%")
                 ->get();
-                $reserves=doctor::where("*")
-                ->with('mydoctor')
-                ->get();
+                // $reserves=doctor::where("*")
+                // ->with('mydoctor')
+                // ->get();
             }
             if($cli_name){
                 $reserves=doctor::where('cli_name','LIKE','%'.$cli_name.'%')->get();

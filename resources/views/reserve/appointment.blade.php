@@ -110,7 +110,15 @@
                                 //     }
                                 //     return $time;
                                 //     echo $time ;--}}
+                                @foreach ($appointments as $appointment )
+                                    <input type="hidden" name="end_time" value="{{ $appointment->time }}"> 
+                                @endforeach
                                 @php
+                                    // $date=$date;     
+                                    // if ($dates=>)
+                                        
+                                    // endif  
+                                    //check if user choose date then display  time slots 
                                     $sometimeOut=20;
                                     $start=$doctor->start_time;
                                     $startRest=$doctor->start_rest_time;
@@ -186,20 +194,29 @@
                                 
                                 
                                 @endforeach --}}
-                                <select class="form-control" name="time" id="time">
-                                        <option value="">Select time slot</option>
-                                    @foreach ($slot as $slots )
-                                        {{-- @if ($slots==$)
-                                            
-                                        @endif --}}
-                                        <option value="@php print_r($slots); @endphp">@php print_r($slots); @endphp A.M.</option>               
-                                    @endforeach
-                                    @foreach ($slot2 as $slots )
-                                        <option value="@php print_r($slots); @endphp">@php print_r($slots); @endphp P.M.</option>               
-                                    @endforeach
-                                </select>
+                                @php
+                                    $test = '<input type="text" id="selected" name="selected" value="">';
+                                    //  echo $test;
+                                     
+                                @endphp
+                                {{-- @if ($test = null) --}}
+                                    <select class="form-control" name="time" id="time">
+                                            <option value="">Select time slot</option>
+                                        @foreach ($slot as $slots )
+                                            {{-- @if ($slots==$)
+                                            @endif --}}
+                                            <option value="@php print_r($slots); @endphp">@php print_r($slots); @endphp A.M.</option>               
+                                        @endforeach
+                                        @foreach ($slot2 as $slots )
+                                            <option value="@php print_r($slots); @endphp">@php print_r($slots); @endphp P.M.</option>               
+                                        @endforeach
+                                    </select>
+                                    {{-- @else
+                                    <p>sdfsdfsdfs</p>
+                                @endif --}}
                             </div>
-                        </div>
+                        </div>                       
+                        
                         <input type="hidden" name="doctorId" value="{{ $doctor_id }}"> 
                         <input type="hidden" name="doctorName" value="{{ $doctor->mydoctor->name }}"> 
                         <input type="hidden" name="clinicName" value="{{ $doctor->cli_name }}"> 
@@ -211,9 +228,7 @@
                         <input type="hidden" name="docState" value="{{ $doctor->mydoctor->state }}"> 
                         <input type="hidden" name="start_time" value="{{ $doctor->start_time }}"> 
                         <input type="hidden" name="end_time" value="{{ $doctor->end_time }}"> 
-                        {{-- @foreach ($appointments as $appointment ) --}}
-                        {{-- <input type="text" name="end_time" value="{{ $appointments->time }}">  --}}
-                        {{-- @endforeach --}}
+                        
                         
                         @if (Auth::check())
                             <button type="submit" class="btn btn-success btn-lg main-blink">Proceed</button> 

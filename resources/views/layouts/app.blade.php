@@ -114,21 +114,23 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <footer class="page-footer font-small stylish-color-dark pt-4 " >
-            <div class="container text-center text-md-left">
-            <div class="row hide-for-small">
-                <div class="col medium-6 small-12 large-6"  >
-                  <div class="col-inner"  >
-                    <p>Copyright 2021 © <strong>FOMEMA Sdn. Bhd. </strong>All Rights Reserved.</p>
-                  </div>
+        {{-- <div class="hidden-xs">
+            <footer class="page-footer font-small stylish-color-dark pt-4 " >
+                <div class="container text-center text-md-left">
+                <div class="row hide-for-small">
+                    <div class="col medium-6 small-12 large-6"  >
+                    <div class="col-inner"  >
+                        <p>Copyright 2021 © <strong>FOMEMA Sdn. Bhd. </strong>All Rights Reserved.</p>
+                    </div>
+                    </div>
+                    <div class="col medium-6 small-12 large-6"  >
+                    <div class="col-inner text-right"  >
+                        <p><a href="https://www.fomema2u.com.my/privacy-policy/">Privacy Policy</a> | <a href="https://www.fomema2u.com.my/information-security-policy/">Information Security Policy</a> | <a href="https://www.fomema2u.com.my/terms-condition/">Terms &amp; Condition</a></p>
+                    </div>
+                    </div>
                 </div>
-                <div class="col medium-6 small-12 large-6"  >
-                  <div class="col-inner text-right"  >
-                    <p><a href="https://www.fomema2u.com.my/privacy-policy/">Privacy Policy</a> | <a href="https://www.fomema2u.com.my/information-security-policy/">Information Security Policy</a> | <a href="https://www.fomema2u.com.my/terms-condition/">Terms &amp; Condition</a></p>
-                  </div>
-                </div>
-              </div>
-        </footer>
+            </footer>
+        </div> --}}
     </div>
     <script>
     //     var dateToday = new Date();
@@ -168,12 +170,19 @@
         $("#datepicker").datepicker({
             dateFormat:"dd-mm-yy",
             // beforeShowDay: $.datepicker.noWeekends,
-            dayNamesMin: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
+            beforeShowDay: function (date)
+	{
+		return [date.getDay() == 1 || date.getDay() == 2 || date.getDay() == 3 || date.getDay() == 4 || date.getDay() == 5, ''];
+	},
+           // dayNamesMin: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
             inline: true,
-            minDate:0,
+           minDate:0,
             onSelect: function(dateText) {
                 display("Selected date: " + dateText + ", Current Selected Value= " + this.value);
+                // var selected= this.value;
+                // document.getElementById("selected").value=selected;
                 $(this).change();
+                // alert(selected);
             }
         }).on("change", function() {
                 display("Change event");
