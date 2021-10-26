@@ -20,52 +20,36 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="widget">
-                    <div class="widget-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="state">
-                                <h6>Doctors</h6>
-                                <h2>{{app\Models\User::where('role_id',2)->count()}}</h2>
-                            </div>
-                            <div class="icon">
-                                <i class="ik ik-user-plus"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="widget">
-                    <div class="widget-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="state">
-                                <h6>Roles</h6>
-                                <h2>{{app\Models\Role::count()}}</h2>
-                            </div>
-                            <div class="icon">
-                                <i class="ik ik-user-check"></i>
+            @if (Auth::user()->role->name=="Admin")
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget">
+                        <div class="widget-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="state">
+                                    <h6>Doctors</h6>
+                                    <h2>{{app\Models\User::where('role_id',2)->count()}}</h2>
+                                </div>
+                                <div class="icon">
+                                    <i class="ik ik-user-plus"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100" style="width: 31%;"></div>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%;"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget">
                     <div class="widget-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>Booking</h6>
-                                {{-- <h2>{{ app\Models\Appointment::count() }}</h2> --}}
+                                <h2>{{ $appointment->count() }}</h2>
                             </div>
                             <div class="icon">
-                                <i class="ik ik-message-square"></i>
+                                <i class="ik ik-user-plus"></i>
                             </div>
                         </div>
                     </div>

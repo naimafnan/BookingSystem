@@ -86,7 +86,7 @@
                                 <div class="nav-item has-sub">
                                     <a href="#"><i class="ik ik-box"></i><span>Patient List</span></a>
                                     <div class="submenu-content">
-                                        <a href="" class="menu-item">Today</a>
+                                        <a href="{{ route('admin.index') }}" class="menu-item">Today</a>
                                     </div>
                                 </div>
                               @endif

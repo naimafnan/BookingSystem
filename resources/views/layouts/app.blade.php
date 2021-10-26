@@ -114,13 +114,13 @@
         <main class="py-4">
             @yield('content')
         </main>
-        {{-- <div class="hidden-xs">
-            <footer class="page-footer font-small stylish-color-dark pt-4 " >
+        <div class="hidden-xs">
+            <footer class="fixed-bottom" class="page-footer font-small stylish-color-dark pt-4 " >
                 <div class="container text-center text-md-left">
                 <div class="row hide-for-small">
                     <div class="col medium-6 small-12 large-6"  >
                     <div class="col-inner"  >
-                        <p>Copyright 2021 © <strong>FOMEMA Sdn. Bhd. </strong>All Rights Reserved.</p>
+                        <p>Copyright 2021 © <strong>FOMEMA IOT Sdn. Bhd. </strong>All Rights Reserved.</p>
                     </div>
                     </div>
                     <div class="col medium-6 small-12 large-6"  >
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </footer>
-        </div> --}}
+        </div>
     </div>
     <script>
     //     var dateToday = new Date();
@@ -176,7 +176,9 @@
 	},
            // dayNamesMin: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
             inline: true,
-           minDate:0,
+           minDate:-3,
+        //    value:,
+            defaultDate:null,
             onSelect: function(dateText) {
                 display("Selected date: " + dateText + ", Current Selected Value= " + this.value);
                 // var selected= this.value;

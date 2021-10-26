@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\doctor;
+use App\Models\User;
 class Appointment extends Model
 {
     use HasFactory;

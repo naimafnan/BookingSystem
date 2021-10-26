@@ -7,21 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Notification extends Mailable
+class NotificationDoctor extends Mailable
 {
     use Queueable, SerializesModels;
-    public $notificationBooking;
+    public $notificationDoctor;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-
-    
-    public function __construct($notificationBooking)
+    public function __construct($notificationDoctor)
     {
         //
-        $this->notificationBooking=$notificationBooking;
+        $this->notificationDoctor=$notificationDoctor;
     }
 
     /**
@@ -32,6 +30,6 @@ class Notification extends Mailable
     public function build()
     {
         return $this->from('FomemaBooking@example.com')
-        ->view('emails.appointment');
+        ->view('emails.appointmentDoctor');
     }
 }

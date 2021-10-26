@@ -52,6 +52,7 @@ html {
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
+  
 }
 
 body {
@@ -10055,10 +10056,13 @@ h3 {
 
 @media only screen and (max-width: 600px) {
   h1 {
-      font-size: 14px
+      font-size: 24px
   }
 
   p {
-      font-size: 12px
+      font-size: 16px
+  }
+  .hidden-xs{
+    display: none;
   }
 }

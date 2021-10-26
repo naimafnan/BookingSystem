@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
@@ -15,7 +15,7 @@ class DashboardController extends Controller
     	if(Auth::user()->role->name=='patient'){
     		return view('home');
     	}
-        
-    	return view('admin.doctor.dashboard');
+        $appointment=Appointment::all();
+    	return view('admin.doctor.dashboard',compact('appointment'));
     }
 }

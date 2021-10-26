@@ -10,6 +10,7 @@ use App\Models\Appointment;
 use DateTime;
 use Carbon\CarbonPeriod;
 use App\Mail\Notification;
+use App\Mail\NotificationDoctor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use SebastianBergmann\Timer\Duration;
@@ -90,7 +91,22 @@ class HomepageController extends Controller
             'doctor_state'=>request()->get('docState')
             
         ];
+        $notificationDoctor=[
+            'name'=>auth()->user()->name,
+            'time'=>$time,
+            'date'=>$date,
+            'doctor_name'=>request()->get('doctorName'),
+            'doctor_email'=>request()->get('doc_email'),
+            'cli_name'=>request()->get('clinicName'),
+            'doctor_add1'=>request()->get('docAdd1'),
+            'doctor_add2'=>request()->get('docAdd2'),
+            'doctor_add3'=>request()->get('docAdd3'),
+            'doctor_add4'=>request()->get('docAdd4'),
+            'doctor_postcode'=>request()->get('docPostcode'),
+            'doctor_state'=>request()->get('docState')
+        ];
         Mail::to(auth()->user()->email)->send(new \App\Mail\Notification($notificationBooking));
+        Mail::to(request()->get('doc_email') )->send(new \App\Mail\NotificationDoctor($notificationDoctor));
         return redirect()->back()->with('msg','Your appointment was booked');
     }
 
@@ -149,23 +165,48 @@ class HomepageController extends Controller
             $services=$request->get('service');
             //get all data from db
             $reserves=doctor::all();
+            $reserves=User::join("doctors","doctors.user_id","=","users.id")
+            ->where('role_id','=','2')->get();
+            // dd($reserves);
             if($keyword){
-                $reserves=doctor::where("cli_name","LIKE","%".$keyword."%")
-                ->orWhere("cli_name","LIKE","%".$keyword."%")
-                ->orWhere("doc_specialist","LIKE","%".$keyword."%")
+                // $reserves=doctor::where("cli_name","LIKE","%".$keyword."%")
+                // ->orWhere("cli_name","LIKE","%".$keyword."%")
+                // ->orWhere("doc_specialist","LIKE","%".$keyword."%")
+                // ->get();
+
+                $reserves=User::join("doctors","doctors.user_id","=","users.id")
+                ->Where("users.name","LIKE","%".$keyword."%")
+                ->orWhere("doctors.cli_name","LIKE","%".$keyword."%")
+                ->orWhere("doctors.doc_specialist","LIKE","%".$keyword."%")
                 ->get();
+
+                // $reserves=User::select('*')
+                // ->Where("users.name","LIKE","%".$keyword."%")
+                // ->with('doctorDetails')
+                // ->get();
+
                 // $reserves=doctor::where("*")
                 // ->with('mydoctor')
                 // ->get();
             }
             if($cli_name){
-                $reserves=doctor::where('cli_name','LIKE','%'.$cli_name.'%')->get();
+                $reserves=User::join("doctors","doctors.user_id","=","users.id")
+                ->where('cli_name','LIKE','%'.$cli_name.'%')
+                ->get();
             }
             if($services){
-                $reserves=doctor::where('doc_service','LIKE','%'.$services.'%')->get();
+                $reserves=User::join("doctors","doctors.user_id","=","users.id")
+                ->where('doc_service','LIKE','%'.$services.'%')->get();
             }
             if($address){
-                $reserves=doctor::where('address1','LIKE','%'.$address.'%')
+                // $reserves=User::join("doctors","doctors.user_id","=","users.id")
+                // ->Where("users.address2","LIKE","%".$address."%")
+                // ->orWhere("users.address3","LIKE","%".$address."%")
+                // ->orWhere("users.address4","LIKE","%".$address."%")
+                // ->orWhere("users.postcode","LIKE","%".$address."%")
+                // ->orWhere("users.state","LIKE","%".$address."%")
+                // ->get();
+                $reserves=User::where('address1','LIKE','%'.$address.'%')
                 ->orWhere("address2","LIKE","%".$address."%")
                 ->orWhere("address3","LIKE","%".$address."%")
                 ->orWhere("address4","LIKE","%".$address."%")

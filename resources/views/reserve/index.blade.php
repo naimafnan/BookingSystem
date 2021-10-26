@@ -12,7 +12,7 @@
         <form class="form-inline justify-content-center" action="{{ url('/search') }}" method="GET" role="search">
             {{csrf_field()}}
              <!-- Can add label if want -->
-            <select class="form-control" id="service" name="service">
+            <select class="form-control mb-2 mr-2" id="service" name="service">
                 <option value="">Service</option>
                 <optgroup label="Doctor"><!-- Use "select" to create object -->
                     <option value="Fomema Examinations">Fomema Examinations</option>
@@ -27,9 +27,7 @@
                     <option>T shape</option>
                     <option>Hollow Square Style</option>
             </select>
-            
-            <span>&nbsp;</span>
-            <select class="form-control" name="clinic" id="clinic">
+            <select class="form-control mb-2 mr-2" name="clinic" id="clinic">
                 <option value="">Clinic Name</option>
                 <option value="klinik Mawar">klinik mawar</option>
                 <option value="klinik Cempaka">klinik Cempaka</option>
@@ -40,16 +38,11 @@
                 <option value="klinik Seri">klinik Wardah</option>                 
                 <option value="klinik Seri">klinik Petaling</option>                 
                 <option value="klinik Seri">klinik Hamzah</option>                 
-                <option value="klinik Seri">klinik Rahim</option>                
-                
+                <option value="klinik Seri">klinik Rahim</option> 
             </select>
-            <span>&nbsp;</span>
-            <input type="text" class="form-control " name="add" placeholder="Enter Location" id="add" >
-            <span>&nbsp;</span>
-            <input type="text" class="form-control" name="keyword" placeholder="Enter Doctor,Clinic,Speicalist,etc.. " id="keyword" >
-            <span>&nbsp;</span>
-            <button type="submit" class="btn btn-primary">Search</button>
-            <span>&nbsp;</span>
+            <input type="text" class="form-control mb-2 mr-2" name="add" placeholder="Enter Location" id="add" >
+            <input type="text" class="form-control mb-2 mr-2" name="keyword" placeholder="Enter Doctor,Clinic,Speicalist,etc.. " id="keyword" >
+            <button type="submit" class="btn btn-primary mb-2 mr-2">Search</button>
         </form>
     </div>
 </div>
