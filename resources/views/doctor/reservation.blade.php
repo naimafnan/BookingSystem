@@ -7,7 +7,7 @@
             <div class="col-12 .col-sm-8 mb-3"> 
                 <div class="card" >
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted">Schedule Time</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Schedule Time test</h6>
                             <div class="row">
                                 <div class="col-md-6 mb-2">
                                     <label for="">Start Time</label>
