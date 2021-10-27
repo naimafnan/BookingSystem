@@ -179,7 +179,7 @@ class HomepageController extends Controller
                 ->orWhere("doctors.cli_name","LIKE","%".$keyword."%")
                 ->orWhere("doctors.doc_specialist","LIKE","%".$keyword."%")
                 ->get();
-
+                // dd($reserves);
                 // $reserves=User::select('*')
                 // ->Where("users.name","LIKE","%".$keyword."%")
                 // ->with('doctorDetails')
@@ -234,6 +234,78 @@ class HomepageController extends Controller
                 ->whereDate('created_at',date('Y-m-d'))
                 ->exists();
         }
+
+        public function getTime(Request $request) {
+            $doctor=doctor::where('id',$request->doctor_id)->first();
+
+            $sometimeOut=20;
+            $start=$doctor->start_time;
+            $startRest=$doctor->start_rest_time;
+            $endRest=$doctor->end_rest_time;
+            $end=$doctor->end_time;
+            // dapatkan masa based on tarikh ($request->datepicker).
+            $time = Appointment::select('time')
+            ->whereDate('date',$request->datepicker)
+            ->get();
+         $data2=[];
+            foreach($time as $times){
+                $timeSlot =  $this->getTimeSlot($sometimeOut, $start, $startRest);
+                $data1=[];
+                foreach($timeSlot as $timeSlots){
+                    if(Carbon::parse($times->time)->format('H:i') != $timeSlots){
+                            $dataAm = $timeSlots;
+                    }
+                    array_push($data1,$dataAm);
+                }
+                    // $arr = array_merge($data2,$data1);
+                    array_push($data2,$data1);
+                }
+
+        //    dd($arr);
+
+                
+        //    combine result timeslot,timeslot2 and send in json format to ajax
+            return response()->json(['data'=>$data2]);
+        }
+
+        private function getTimeSlot($sometimeOut, $start, $startRest)
+            {
+                $start = new DateTime($start);
+                $end = new DateTime($startRest);
+                $BeginTimeStemp = $start->format('H:i'); // Get time Format in Hour and minutes
+                $lastTimeStemp = $end->format('H:i');
+                $i=0;
+                while(strtotime($BeginTimeStemp) <= strtotime($lastTimeStemp)){
+                    $start = $BeginTimeStemp;
+                    $end = date('H:i',strtotime('+'.$sometimeOut.' minutes',strtotime($BeginTimeStemp)));
+                    $BeginTimeStemp = date('H:i',strtotime('+'.$sometimeOut.' minutes',strtotime($BeginTimeStemp)));
+                    $i++;
+                    if(strtotime($BeginTimeStemp) <= strtotime($lastTimeStemp)){
+                                           
+                            $time[$i]= $start; 
+                    
+                    }
+                }
+                return $time;
+            }
+        private function getTimeSlot2($sometimeOut, $endRest, $end)
+            {
+                $start = new DateTime($endRest);
+                $end = new DateTime($end);
+                $BeginTimeStemp = $start->format('H:i'); // Get time Format in Hour and minutes
+                $lastTimeStemp = $end->format('H:i');
+                $i=0;
+                while(strtotime($BeginTimeStemp) <= strtotime($lastTimeStemp)){
+                    $start = $BeginTimeStemp;
+                    $end = date('H:i',strtotime('+'.$sometimeOut.' minutes',strtotime($BeginTimeStemp)));
+                    $BeginTimeStemp = date('H:i',strtotime('+'.$sometimeOut.' minutes',strtotime($BeginTimeStemp)));
+                    $i++;
+                    if(strtotime($BeginTimeStemp) <= strtotime($lastTimeStemp)){
+                        $time[$i] = $start; 
+                    }
+                }
+                return $time;
+            }
 
         
 }

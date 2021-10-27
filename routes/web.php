@@ -45,6 +45,8 @@ Route::post('/user-profile-update',[ProfileController::class,'update']);
 Route::get('/myBooking',[HomepageController::class,'myBooking']);
 Route::get('/BookingDetails/{appointmentsId}',[HomepageController::class,'BookingDetails']);
 
+Route::post('/getTime',[HomepageController::class,'getTime'])->name('getTime');
+
 Route::resource('/doctor', doctorController::class);
 Route::resource('/admin', AdminController::class);
 

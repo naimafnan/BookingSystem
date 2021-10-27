@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" >
 
     <title>Booking</title>
 
@@ -132,7 +132,15 @@
             </footer>
         </div>
     </div>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        </script>
     <script>
+        
     //     var dateToday = new Date();
     //   $( function() {
     //     $("#datepicker").datepicker({
@@ -196,6 +204,7 @@
     });
     
     </script>
+        @stack('script')
     <style type="text/css">
 /*         
         label.btn{
@@ -209,7 +218,7 @@
             display: inline-block;
             min-width: 60px;
         }  
-        }
+        
     </style>
 </body>
 </html>
