@@ -142,24 +142,33 @@
 
 
     $("#datepicker1").on('change',function(){
-    
-            $.ajax({
-                type: "POST",
-                url: "{{ route('getTime') }}",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "datepicker": $('#datepicker1').val(),
-                    "doctor_id": $('#doctor_id').val()
-                },
-     
-           success: function (data) { 
-             alert(data.data);
-            
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: "{{ route('getTime') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "datepicker": $('#datepicker1').val(),
+                "doctor_id": $('#doctor_id').val()
+            },
+        success: function (data) { 
+            alert(data.data);
         
-
+            }
+        });
     });
+    $(function(){
+        var dtToday = new Date();
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        
+        var maxDate = year + '-' + month + '-' + day;
+        $('#datepicker1').attr('min', maxDate);
+});
 
 
 </script>

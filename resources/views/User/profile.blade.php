@@ -81,9 +81,36 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" name="phone_number" class="form-control" value="{{auth()->user()->phone_number}}" placeholder="Phone number">
-                                
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" name="phone_number" class="form-control" value="{{auth()->user()->phone_number}}" placeholder="Phone number">
+                                </div>
+                                @if (Auth::user()->role->name=="doctor")
+                                    <div class="col-md-6 mb-3">
+                                        <select name="state" id="STATE" class="form-control" onchange="change_state();">
+                                            <option value="">Select Service</option>
+                                            <option value="Fomema Examinations">Fomema Examinations</option>
+                                            <option value="X-Ray">X-Ray</option>
+                                        </select>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="row">
+                                @if (Auth::user()->role->name=="doctor")
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" name="clinic_name" class="form-control" value="{{auth()->user()->cli_name}}" placeholder="clinic Name">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" name="specialist" class="form-control" value="" placeholder="Specialist">
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="row">
+                                @if (Auth::user()->role->name=="doctor")
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" name="career" class="form-control" value="" placeholder="Career">
+                                    </div>
+                                @endif
                             </div>
                             @if (Auth::user()->role->name=="doctor")
                                 <div class="form-group">

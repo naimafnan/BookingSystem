@@ -184,7 +184,7 @@
 	},
            // dayNamesMin: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
             inline: true,
-           minDate:-3,
+            minDate:-3,
         //    value:,
             defaultDate:null,
             onSelect: function(dateText) {

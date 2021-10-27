@@ -25,7 +25,8 @@ class HomepageController extends Controller
     public function index()
     {
         //
-        return view('reserve.index');
+        $reserves=doctor::all();
+        return view('reserve.index',compact('reserves'));
     }
 
     /**
@@ -46,19 +47,6 @@ class HomepageController extends Controller
      */
     public function store(Request $request)
     {
-        //$dateTime = Carbon::parse($request->your_datetime_field);
-        //$request['your_datetime_field'] = $dateTime->format('Y-m-d H:i:s');
-        //$("input").datepicker({ dateFormat: 'dd, mm, yy' });
-        //store booking user
-        // $date = $request->input('dateFrom');
-        // $data = $request->all();
-        // $data['transaction_date'] = Carbon::createFromFormat('m/d/Y', $request->transaction_date)->format('Y-m-d');
-        // $transaction = Transaction::create($data);
-        // $date=$request->input('date');
-        // $date=$request->input('datepicker');
-        // $date['date']=Carbon::createFromFormat('d/m/Y',$request->date)->format('Y-m-d');
-        // $date_variable = Carbon::createFromFormat('d-m-Y', $request->input('date'))->format('Y-m-d');
-        // $date=Carbon::createFromFormat('d-m-y',$request->date->format('Y-m-d'));
         $request->validate(['dateText'=>'required']);
         $request->validate(['time'=>'required']);
         //validate 1 booking only
@@ -169,25 +157,11 @@ class HomepageController extends Controller
             ->where('role_id','=','2')->get();
             // dd($reserves);
             if($keyword){
-                // $reserves=doctor::where("cli_name","LIKE","%".$keyword."%")
-                // ->orWhere("cli_name","LIKE","%".$keyword."%")
-                // ->orWhere("doc_specialist","LIKE","%".$keyword."%")
-                // ->get();
-
                 $reserves=User::join("doctors","doctors.user_id","=","users.id")
                 ->Where("users.name","LIKE","%".$keyword."%")
                 ->orWhere("doctors.cli_name","LIKE","%".$keyword."%")
                 ->orWhere("doctors.doc_specialist","LIKE","%".$keyword."%")
                 ->get();
-                // dd($reserves);
-                // $reserves=User::select('*')
-                // ->Where("users.name","LIKE","%".$keyword."%")
-                // ->with('doctorDetails')
-                // ->get();
-
-                // $reserves=doctor::where("*")
-                // ->with('mydoctor')
-                // ->get();
             }
             if($cli_name){
                 $reserves=User::join("doctors","doctors.user_id","=","users.id")
@@ -199,13 +173,6 @@ class HomepageController extends Controller
                 ->where('doc_service','LIKE','%'.$services.'%')->get();
             }
             if($address){
-                // $reserves=User::join("doctors","doctors.user_id","=","users.id")
-                // ->Where("users.address2","LIKE","%".$address."%")
-                // ->orWhere("users.address3","LIKE","%".$address."%")
-                // ->orWhere("users.address4","LIKE","%".$address."%")
-                // ->orWhere("users.postcode","LIKE","%".$address."%")
-                // ->orWhere("users.state","LIKE","%".$address."%")
-                // ->get();
                 $reserves=User::where('address1','LIKE','%'.$address.'%')
                 ->orWhere("address2","LIKE","%".$address."%")
                 ->orWhere("address3","LIKE","%".$address."%")
@@ -245,21 +212,32 @@ class HomepageController extends Controller
             $end=$doctor->end_time;
             // dapatkan masa based on tarikh ($request->datepicker).
             $time = Appointment::select('time')
+            ->where('doctor_id',$request->doctor_id)
             ->whereDate('date',$request->datepicker)
             ->get();
-         $data2=[];
-            foreach($time as $times){
-                $timeSlot =  $this->getTimeSlot($sometimeOut, $start, $startRest);
-                $data1=[];
-                foreach($timeSlot as $timeSlots){
-                    if(Carbon::parse($times->time)->format('H:i') != $timeSlots){
-                            $dataAm = $timeSlots;
-                    }
-                    array_push($data1,$dataAm);
+            $data2=[];
+            $timeSlot = $this->getTimeSlot($sometimeOut, $start, $startRest);
+            $data1=[];
+            foreach($timeSlot as $timeSlots){
+                foreach($time as $times){
+                    // if($timeSlots != Carbon::parse($times->time)->format('H:i')){
+                        $arr=array($timeSlots);
+                        $arr2=array(Carbon::parse($times->time)->format('H:i'));
+                        
+                        $combined = array_merge($arr,$arr2);
+                        $result =array_intersect($arr,$arr2);
+                        $output=array_diff($arr,$arr2);
+                        $dataAm = $output;
+                        // dd($output);
+                    // }
                 }
-                    // $arr = array_merge($data2,$data1);
-                    array_push($data2,$data1);
-                }
+                // dd($arr2);
+                
+                array_push($data1,$dataAm);
+            }
+                // $arr = array_merge($data2,$data1);
+                array_push($data2,$data1);
+                
 
         //    dd($arr);
 

@@ -87,6 +87,9 @@ class ProfileController extends Controller
         $user->state=$request->input('state');
         $user->phone_number=$request->input('phone_number');
 
+        // $reserves=User::join("doctors","doctors.user_id","=","users.id")
+        //     ->where('role_id','=','2')->get();
+        //     $reserves-> cli_name =$request->input('clinic_name');
         //image
         if($request->hasfile('image'))
         {
@@ -101,6 +104,7 @@ class ProfileController extends Controller
             $user->image=$filename;
         }
         $user->update();
+        // $reserves->update();
         return redirect()->back()->with('success', 'Profile Updated');
     }
 

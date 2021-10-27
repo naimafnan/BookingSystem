@@ -27,13 +27,9 @@
             {{-- nak masukkan satu category location & clinic  --}}
             <select class="form-control mb-2 mr-2" name="clinic" id="clinic">
                 <option value="">Clinic Name</option>
-                <option value="klinik Mawar">klinik mawar</option>
-                <option value="klinik Cempaka">klinik Cempaka</option>
-                <option value="klinik Melur">klinik Melur</option>
-                <option value="klinik Rafidah">klinik Rafidah</option>
-                <option value="klinik Hamzah">klinik Hamzah</option>
-                <option value="klinik Bahagia">klinik Bahagia</option>              
-                <option value="klinik Rahim">klinik Rahim</option>                
+                @foreach ($reserves as $reserve )
+                    <option value="{{ $reserve->cli_name }}">{{ $reserve->cli_name }}</option> 
+                @endforeach
                 
             </select>
             {{-- <span>&nbsp;</span> --}}
