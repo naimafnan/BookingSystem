@@ -87,7 +87,7 @@
                                 </div>
                                 @if (Auth::user()->role->name=="doctor")
                                     <div class="col-md-6 mb-3">
-                                        <select name="state" id="STATE" class="form-control" onchange="change_state();">
+                                        <select name="service" id="service" class="form-control" onchange="change_state();">
                                             <option value="">Select Service</option>
                                             <option value="Fomema Examinations">Fomema Examinations</option>
                                             <option value="X-Ray">X-Ray</option>
@@ -98,17 +98,17 @@
                             <div class="row">
                                 @if (Auth::user()->role->name=="doctor")
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" name="clinic_name" class="form-control" value="{{auth()->user()->cli_name}}" placeholder="clinic Name">
+                                        <input type="text" name="clinicname" class="form-control" value="{{auth()->user()->doctorDetails->cli_name}}" placeholder="clinic Name">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" name="specialist" class="form-control" value="" placeholder="Specialist">
+                                        <input type="text" name="specialist" class="form-control" value="{{auth()->user()->doctorDetails->doc_specialist}}" placeholder="Specialist">
                                     </div>
                                 @endif
                             </div>
                             <div class="row">
                                 @if (Auth::user()->role->name=="doctor")
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" name="career" class="form-control" value="" placeholder="Career">
+                                        <input type="text" name="career" class="form-control" value="{{auth()->user()->doctorDetails->doc_career}}" placeholder="Career">
                                     </div>
                                 @endif
                             </div>

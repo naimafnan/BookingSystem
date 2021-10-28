@@ -26,6 +26,7 @@
                         <div class="widget-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="state">
+                                    {{-- berapa patient dr for today --}}
                                     <h6>Doctors</h6>
                                     <h2>{{app\Models\User::where('role_id',2)->count()}}</h2>
                                 </div>
@@ -46,7 +47,11 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>Booking</h6>
-                                <h2>{{ $appointment->count() }}</h2>
+                                {{-- @foreach ($appointments as $appointment) --}}
+                                    {{-- <h2>{{ $appointment->d}}</h2> --}}
+                                    <h2>{{app\Models\Appointment::where('doctor_id',auth()->user()->id)->count()}}</h2>
+                                {{-- @endforeach --}}
+                                
                             </div>
                             <div class="icon">
                                 <i class="ik ik-user-plus"></i>

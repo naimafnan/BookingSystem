@@ -165,20 +165,21 @@ class HomepageController extends Controller
             }
             if($cli_name){
                 $reserves=User::join("doctors","doctors.user_id","=","users.id")
-                ->where('cli_name','LIKE','%'.$cli_name.'%')
+                ->where('doctors.cli_name','LIKE','%'.$cli_name.'%')
                 ->get();
             }
             if($services){
                 $reserves=User::join("doctors","doctors.user_id","=","users.id")
-                ->where('doc_service','LIKE','%'.$services.'%')->get();
+                ->where('doctors.doc_service','LIKE','%'.$services.'%')->get();
             }
             if($address){
-                $reserves=User::where('address1','LIKE','%'.$address.'%')
-                ->orWhere("address2","LIKE","%".$address."%")
-                ->orWhere("address3","LIKE","%".$address."%")
-                ->orWhere("address4","LIKE","%".$address."%")
-                ->orWhere("postcode","LIKE","%".$address."%")
-                ->orWhere("state","LIKE","%".$address."%")
+                $reserves=User::join("doctors","doctors.user_id","=","users.id")
+                ->where('users.address1','LIKE','%'.$address.'%')
+                ->orWhere("users.address2","LIKE","%".$address."%")
+                ->orWhere("users.address3","LIKE","%".$address."%")
+                ->orWhere("users.address4","LIKE","%".$address."%")
+                ->orWhere("users.postcode","LIKE","%".$address."%")
+                ->orWhere("users.state","LIKE","%".$address."%")
                 ->get();
             }
             return view('reserve.search',compact('reserves'));
@@ -218,32 +219,45 @@ class HomepageController extends Controller
             $data2=[];
             $timeSlot = $this->getTimeSlot($sometimeOut, $start, $startRest);
             $data1=[];
+            $data3=[];
             foreach($timeSlot as $timeSlots){
-                foreach($time as $times){
+                // foreach($time as $times){
                     // if($timeSlots != Carbon::parse($times->time)->format('H:i')){
                         $arr=array($timeSlots);
-                        $arr2=array(Carbon::parse($times->time)->format('H:i'));
+                        // $arr2=array(Carbon::parse($times->time)->format('H:i'));
                         
-                        $combined = array_merge($arr,$arr2);
-                        $result =array_intersect($arr,$arr2);
-                        $output=array_diff($arr,$arr2);
-                        $dataAm = $output;
-                        // dd($output);
+                        // $combined = array_merge($arr,$arr2);
+                        // $result =array_intersect($arr,$arr2);
+                        // $output=array_diff($arr,$arr2);
+                        $dataAm = $arr;
+                        // $dataAm=array(1, 2, 3, 4);
+
+                        // dd($dataAm);
                     // }
-                }
+                // }
                 // dd($arr2);
                 
                 array_push($data1,$dataAm);
             }
-                // $arr = array_merge($data2,$data1);
-                array_push($data2,$data1);
-                
+            foreach($time as $times){
+                $arr2=array(Carbon::parse($times->time)->format('H:i'));
+                $data = $arr2;
+                // $data = array(3, 4, 5, 6);
+                array_push($data2,$data);
+            }
+                // $data4=array_unique( array_merge($data1, $data2) );
+                // $output=array_diff($data1,$data2);
+                $combined = array_intersect($data1,$data2);
+                // array_push($data3,$output);
+                // $data4=implode(",",$data3);
+                // dd($combined);
 
         //    dd($arr);
 
+
                 
         //    combine result timeslot,timeslot2 and send in json format to ajax
-            return response()->json(['data'=>$data2]);
+            return response()->json(['data'=>$combined]);
         }
 
         private function getTimeSlot($sometimeOut, $start, $startRest)

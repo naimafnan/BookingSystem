@@ -40,6 +40,16 @@
                                     @enderror
                                 </div>
                             </div>
+                            {{-- <div class="form-group row">
+                                <label for="select-role" class="col-md-4 col-form-label text-md-right">Login as</label>
+                                <div class="col-md-6">
+                                    <select name="role" id="role" class="form-control" onchange="change_state();">
+                                        <option value="">Select role</option>
+                                        <option value="2">Doctor</option>
+                                        <option value="3">Patients</option>
+                                    </select>
+                                </div>
+                            </div> --}}
 
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">

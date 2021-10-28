@@ -74,3 +74,4 @@ class RegisterController extends Controller
         ]);
     }
 }
+  //update doc to pass user id in table doc

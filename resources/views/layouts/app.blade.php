@@ -70,7 +70,12 @@
                             
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                                @if (Auth::user()->role->name=="patient")
+                                    <a class="nav-link" href="{{ url('/') }}">Home</a>
+                                @endif
+                                @if (Auth::user()->role->name=="doctor")
+                                    <a class="nav-link" href="{{ url('/dashboard') }}">Home</a>
+                                @endif
                             </li>
                             @if (Auth::user()->role->name=="patient")
                                 <li class="nav-item">

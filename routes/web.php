@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\doctorController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatientListTodayController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,7 @@ Route::post('/getTime',[HomepageController::class,'getTime'])->name('getTime');
 Route::resource('/doctor', doctorController::class);
 Route::resource('/admin', AdminController::class);
 
+Route::resource('/patientToday',PatientListTodayController::class);
 //checkout
 // Route::
 

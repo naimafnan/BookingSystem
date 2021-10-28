@@ -75,10 +75,9 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user_id=Auth::user()->id;
-        $user=User::findorFail($user_id);
+        $user=User::with('doctorDetails')->findorFail($user_id);
         $user->name=$request->input('name');
         $user->email=$request->input('email');
-        // $user->password=$request->input('password');
         $user->address1=$request->input('address1');
         $user->address2=$request->input('address2');
         $user->address3=$request->input('address3');
@@ -86,10 +85,11 @@ class ProfileController extends Controller
         $user->postcode=$request->input('postcode');
         $user->state=$request->input('state');
         $user->phone_number=$request->input('phone_number');
-
-        // $reserves=User::join("doctors","doctors.user_id","=","users.id")
-        //     ->where('role_id','=','2')->get();
-        //     $reserves-> cli_name =$request->input('clinic_name');
+        $user->doctorDetails->cli_name=$request->input('clinicname');
+        $user->doctorDetails->doc_specialist=$request->input('specialist');
+        $user->doctorDetails->doc_service=$request->input('service');
+        $user->doctorDetails->doc_career=$request->input('career');
+      
         //image
         if($request->hasfile('image'))
         {
@@ -103,6 +103,7 @@ class ProfileController extends Controller
             $file->move('uploads/profile/',$filename);
             $user->image=$filename;
         }
+        $user->push();
         $user->update();
         // $reserves->update();
         return redirect()->back()->with('success', 'Profile Updated');

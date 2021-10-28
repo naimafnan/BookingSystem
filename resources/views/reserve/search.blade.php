@@ -53,11 +53,11 @@
                             @endforeach --}}
                             
                             <h1 class="card-title text-black">{{ ucfirst($reserve->name) }}</h1>
-                            <p class="card-text">{{ $reserve->doctorDetails->doc_career }}</p>
+                            <p class="card-text">{{ $reserve->doc_career }}</p>
                             <p class="card-text text-black-50">Specialty</p>
-                            <p class="card-text">{{ $reserve->doctorDetails->doc_specialist }}</p>
+                            <p class="card-text">{{ $reserve->doc_specialist }}</p>
                             <p class="card-text text-black-50">Location</p>
-                            <p class="card-text">{{ $reserve->doctorDetails->cli_name }}</p>
+                            <p class="card-text">{{ $reserve->cli_name }}</p>
                             <p class="card-text">{{ $reserve->address1 }},{{ $reserve->address2 }},{{ $reserve->address3 }},{{ $reserve->address4 }},{{ $reserve->postcode }},{{ $reserve->state }}</p>
                             {{-- <p class="card-text">{{ $reserve->mydoctor->address1 }},{{ $reserve->mydoctor->address2 }},{{ $reserve->mydoctor->address3 }},{{ $reserve->mydoctor->address4 }},{{ $reserve->mydoctor->postcode }},{{ $reserve->mydoctor->state }}</p> --}}
                             
