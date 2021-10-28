@@ -49,7 +49,7 @@
                             @foreach ($appointments as $appointment )
                                 <input type="hidden" name="end_time" value="{{ $appointment->time }}"> 
                             @endforeach
-                            @php
+                            {{-- @php
                                 $sometimeOut=20;
                                 $start=$doctor->start_time;
                                 $startRest=$doctor->start_rest_time;
@@ -93,19 +93,19 @@
                                         return $time;
                                     }
                                     $slot2 = getTimeSlot2(20, $endRest, $end); 
-                            @endphp 
+                            @endphp  --}}
                             @php
                                 $test='<input type="text" id="selected" name="selected" value="">'; 
                                 
                             @endphp 
                                 <select class="form-control mb-2" name="time" id="time">
-                                        <option value="">Select time slot</option>
+                                        {{-- <option value="">Select time slot</option>
                                     @foreach ($slot as $slots ) 
                                         <option value="@php print_r($slots); @endphp">@php print_r($slots); @endphp A.M.</option>               
                                     @endforeach
                                     @foreach ($slot2 as $slots )
                                         <option value="@php print_r($slots); @endphp">@php print_r($slots); @endphp P.M.</option>               
-                                    @endforeach
+                                    @endforeach --}}
                                 </select> 
                             
                             <input type="hidden" id="doctor_id" name="doctorId" value="{{ $doctor_id }}"> 
@@ -142,6 +142,11 @@
 
 
     $("#datepicker1").on('change',function(){
+
+        $('#time').html('');
+        $('#time').append('<option value="">----- Processing -----</option>');
+        $('#time').attr("disabled", true);
+
         $.ajax({
             type: "POST",
             url: "{{ route('getTime') }}",
@@ -151,9 +156,17 @@
                 "doctor_id": $('#doctor_id').val()
             },
         success: function (data) { 
-            alert(data.data);
-        
-            }
+            // console.log(data);
+                        $('#time').html('');
+                        $('#time').append('<option value="">----- Please Select -----</option>');
+                        $.each(data, function(i,v)
+                        {
+                            $('#time').append('<option value="'+ v + '">'+ v + '</option>');
+                        });
+
+                        $('#time').select().prop("disabled", false);
+                    }        
+            
         });
     });
     $(function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\doctor;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -65,13 +66,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $role=Role::where('name','patient')->first();
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id'=>$role->id,
-        ]);
+        $role=Role::where('id',$data['role'])->first();
+
+        $users = new User();
+        $users-> name = $data['name'];
+        $users-> email = $data['email'];
+        $users-> password = Hash::make($data['password']);
+        $users-> role_id = $role->id;
+        $users-> save();
+
+        if(strtoupper($role->name) == 'DOCTOR'){
+            $doctors = new doctor();
+            $doctors->user_id = $users->id;
+            $doctors->save();
+        }
+
+
+        return $users;
+       
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'role_id'=>$role->id,
+        // ]);
     }
 }
   //update doc to pass user id in table doc

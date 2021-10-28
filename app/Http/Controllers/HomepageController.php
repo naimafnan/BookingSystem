@@ -152,10 +152,9 @@ class HomepageController extends Controller
             $address=$request->get('add');
             $services=$request->get('service');
             //get all data from db
-            $reserves=doctor::all();
+            // $reserves=doctor::all();
             $reserves=User::join("doctors","doctors.user_id","=","users.id")
-            ->where('role_id','=','2')->get();
-            // dd($reserves);
+            ->where('role_id','=','2')->get(); 
             if($keyword){
                 $reserves=User::join("doctors","doctors.user_id","=","users.id")
                 ->Where("users.name","LIKE","%".$keyword."%")
@@ -209,55 +208,37 @@ class HomepageController extends Controller
             $sometimeOut=20;
             $start=$doctor->start_time;
             $startRest=$doctor->start_rest_time;
-            $endRest=$doctor->end_rest_time;
+            $endRest=$doctor->end_rest_time; 
             $end=$doctor->end_time;
-            // dapatkan masa based on tarikh ($request->datepicker).
+
             $time = Appointment::select('time')
             ->where('doctor_id',$request->doctor_id)
             ->whereDate('date',$request->datepicker)
             ->get();
+            
             $data2=[];
             $timeSlot = $this->getTimeSlot($sometimeOut, $start, $startRest);
+            $timeSlot2 = $this->getTimeSlot2($sometimeOut, $endRest, $end);
             $data1=[];
             $data3=[];
             foreach($timeSlot as $timeSlots){
-                // foreach($time as $times){
-                    // if($timeSlots != Carbon::parse($times->time)->format('H:i')){
-                        $arr=array($timeSlots);
-                        // $arr2=array(Carbon::parse($times->time)->format('H:i'));
-                        
-                        // $combined = array_merge($arr,$arr2);
-                        // $result =array_intersect($arr,$arr2);
-                        // $output=array_diff($arr,$arr2);
-                        $dataAm = $arr;
-                        // $dataAm=array(1, 2, 3, 4);
+                $arr=array($timeSlots);
+                array_push($data1,$arr);
+            }
 
-                        // dd($dataAm);
-                    // }
-                // }
-                // dd($arr2);
-                
-                array_push($data1,$dataAm);
+            foreach($timeSlot2 as $timeSlot2s){
+                $arr3=array($timeSlot2s);
+                array_push($data3,$arr3);
             }
             foreach($time as $times){
                 $arr2=array(Carbon::parse($times->time)->format('H:i'));
-                $data = $arr2;
-                // $data = array(3, 4, 5, 6);
-                array_push($data2,$data);
+                array_push($data2,$arr2);
             }
-                // $data4=array_unique( array_merge($data1, $data2) );
-                // $output=array_diff($data1,$data2);
-                $combined = array_intersect($data1,$data2);
-                // array_push($data3,$output);
-                // $data4=implode(",",$data3);
-                // dd($combined);
-
-        //    dd($arr);
-
-
-                
-        //    combine result timeslot,timeslot2 and send in json format to ajax
-            return response()->json(['data'=>$combined]);
+                $test1 = array_column($data1, '0');
+                $test2 = array_column($data2, '0');
+                $test3 = array_column($data3, '0');
+                $combined = array_diff($test1,$test3,$test2);
+            return response()->json($combined);
         }
 
         private function getTimeSlot($sometimeOut, $start, $startRest)
@@ -282,18 +263,18 @@ class HomepageController extends Controller
             }
         private function getTimeSlot2($sometimeOut, $endRest, $end)
             {
-                $start = new DateTime($endRest);
+                $endRest = new DateTime($endRest);
                 $end = new DateTime($end);
-                $BeginTimeStemp = $start->format('H:i'); // Get time Format in Hour and minutes
+                $BeginTimeStemp = $endRest->format('H:i'); // Get time Format in Hour and minutes
                 $lastTimeStemp = $end->format('H:i');
                 $i=0;
                 while(strtotime($BeginTimeStemp) <= strtotime($lastTimeStemp)){
-                    $start = $BeginTimeStemp;
+                    $endRest = $BeginTimeStemp;
                     $end = date('H:i',strtotime('+'.$sometimeOut.' minutes',strtotime($BeginTimeStemp)));
                     $BeginTimeStemp = date('H:i',strtotime('+'.$sometimeOut.' minutes',strtotime($BeginTimeStemp)));
                     $i++;
                     if(strtotime($BeginTimeStemp) <= strtotime($lastTimeStemp)){
-                        $time[$i] = $start; 
+                        $time[$i] = $endRest; 
                     }
                 }
                 return $time;

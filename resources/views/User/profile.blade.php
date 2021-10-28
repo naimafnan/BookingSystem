@@ -57,7 +57,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" name="postcode" class="form-control @error('address') is-invalid @enderror" placeholder="Postcode"  value="{{auth()->user()->postcode}}">
+                                    <input type="text" name="postcode" class="form-control @error('address') is-invalid @enderror" placeholder="Postcode"  value="{{auth()->user()->postcode}}" maxlength="5">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <select name="state" id="STATE" class="form-control" onchange="change_state();">
@@ -91,6 +91,7 @@
                                             <option value="">Select Service</option>
                                             <option value="Fomema Examinations">Fomema Examinations</option>
                                             <option value="X-Ray">X-Ray</option>
+                                            {{-- listed service for each role --}}
                                         </select>
                                     </div>
                                 @endif
@@ -98,17 +99,17 @@
                             <div class="row">
                                 @if (Auth::user()->role->name=="doctor")
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" name="clinicname" class="form-control" value="{{auth()->user()->doctorDetails->cli_name}}" placeholder="clinic Name">
+                                        <input type="text" name="clinicname" class="form-control" value="{{auth()->user()->doctorDetails->cli_name ?? ''}}" placeholder="clinic Name">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" name="specialist" class="form-control" value="{{auth()->user()->doctorDetails->doc_specialist}}" placeholder="Specialist">
+                                        <input type="text" name="specialist" class="form-control" value="{{auth()->user()->doctorDetails->doc_specialist  ?? ''}}" placeholder="Specialist">
                                     </div>
                                 @endif
                             </div>
                             <div class="row">
                                 @if (Auth::user()->role->name=="doctor")
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" name="career" class="form-control" value="{{auth()->user()->doctorDetails->doc_career}}" placeholder="Career">
+                                        <input type="text" name="career" class="form-control" value="{{auth()->user()->doctorDetails->doc_career  ?? ''}}" placeholder="Career">
                                     </div>
                                 @endif
                             </div>

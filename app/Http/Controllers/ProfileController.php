@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
+use App\Models\doctor;
 class ProfileController extends Controller
 {
     /**
@@ -75,21 +76,18 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user_id=Auth::user()->id;
-        $user=User::with('doctorDetails')->findorFail($user_id);
-        $user->name=$request->input('name');
-        $user->email=$request->input('email');
-        $user->address1=$request->input('address1');
-        $user->address2=$request->input('address2');
-        $user->address3=$request->input('address3');
-        $user->address4=$request->input('address4');
-        $user->postcode=$request->input('postcode');
-        $user->state=$request->input('state');
-        $user->phone_number=$request->input('phone_number');
-        $user->doctorDetails->cli_name=$request->input('clinicname');
-        $user->doctorDetails->doc_specialist=$request->input('specialist');
-        $user->doctorDetails->doc_service=$request->input('service');
-        $user->doctorDetails->doc_career=$request->input('career');
-      
+
+        $user = User::find($user_id);
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->address1=$request->address1;
+        $user->address2=$request->address2;
+        $user->address3=$request->address3;
+        $user->address4=$request->address4;
+        $user->postcode=$request->postcode;
+        $user->state=$request->state;
+        $user->phone_number=$request->phone_number;
+   
         //image
         if($request->hasfile('image'))
         {
@@ -103,8 +101,16 @@ class ProfileController extends Controller
             $file->move('uploads/profile/',$filename);
             $user->image=$filename;
         }
-        $user->push();
-        $user->update();
+        // $user->push();
+        $user->save();
+
+        $doctor = doctor::where('user_id',$user_id)->first();
+        $doctor->cli_name=$request->clinicname ?? '';
+        $doctor->doc_specialist=$request->specialist ?? '';
+        $doctor->doc_service=$request->service ?? '';
+        $doctor->doc_career=$request->career ?? '';
+        $doctor->save();
+
         // $reserves->update();
         return redirect()->back()->with('success', 'Profile Updated');
     }
