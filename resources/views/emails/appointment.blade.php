@@ -1,6 +1,5 @@
 Dear {{$notificationBooking['name']}},
-<p>Thank you for booking your appointment with Fomema</p>
-<p>The details of your appointment are below:</p>
+<p>Thank you for booking your appointment with FOMEMA</p>
 Doctor :{{ $notificationBooking['doctor_name'] }}<br>
 Time :{{$notificationBooking['time']}}<br>
 Date :{{$notificationBooking['date']}}<br>

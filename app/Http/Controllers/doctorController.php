@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\doctor;
 class doctorController extends Controller
 {
     /**
@@ -13,7 +14,8 @@ class doctorController extends Controller
      */
     public function index()
     {
-        return view('doctor.reservation');
+        $doctors=doctor::where('id',auth()->user()->id)->first();
+        return view('doctor.reservation',compact('doctors'));
 
     }
 
@@ -25,7 +27,7 @@ class doctorController extends Controller
     public function create()
     {
         //
-        return view('doctor.reservation');
+        // return view('doctor.reservation');
     }
 
     /**
@@ -37,6 +39,8 @@ class doctorController extends Controller
     public function store(Request $request)
     {
         //
+        
+
     }
 
     /**
@@ -68,9 +72,17 @@ class doctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $doctors=doctor::where('id',auth()->user()->id)->first();
+        $doctors->start_time=$request->Startime;
+        $doctors->end_time=$request->EndTime;
+        $doctors->start_rest_time=$request->startRestTime;
+        $doctors->end_rest_time=$request->endRestTime;
+        $doctors->slot_duration=$request->TimeSlots;
+        $doctors->update();
+        return redirect()->back()->with('msg','Your schedule has been updated');
     }
 
     /**

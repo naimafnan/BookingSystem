@@ -34,6 +34,7 @@ class CreateDoctorsTable extends Migration
             $table->time('end_time')->nullable();
             $table->time('start_rest_time')->nullable();
             $table->time('end_rest_time')->nullable();
+            $table->integer('slot_duration')->nullable();
             $table->string('working_day')->nullable();
             $table->timestamps();
         });

@@ -68,7 +68,7 @@ class HomepageController extends Controller
         $notificationBooking=[
             'name'=>auth()->user()->name,
             'time'=>$time,
-            'date'=>$date,
+            'date'=>Carbon::parse($date)->format('d/m/Y'),
             'doctor_name'=>request()->get('doctorName'),
             'cli_name'=>request()->get('clinicName'),
             'doctor_add1'=>request()->get('docAdd1'),
@@ -82,7 +82,7 @@ class HomepageController extends Controller
         $notificationDoctor=[
             'name'=>auth()->user()->name,
             'time'=>$time,
-            'date'=>$date,
+            'date'=>Carbon::parse($date)->format('d/m/Y'),
             'doctor_name'=>request()->get('doctorName'),
             'doctor_email'=>request()->get('doc_email'),
             'cli_name'=>request()->get('clinicName'),
@@ -205,7 +205,7 @@ class HomepageController extends Controller
         public function getTime(Request $request) {
             $doctor=doctor::where('id',$request->doctor_id)->first();
 
-            $sometimeOut=20;
+            $sometimeOut=$doctor->slot_duration;
             $start=$doctor->start_time;
             $startRest=$doctor->start_rest_time;
             $endRest=$doctor->end_rest_time; 
@@ -237,7 +237,8 @@ class HomepageController extends Controller
                 $test1 = array_column($data1, '0');
                 $test2 = array_column($data2, '0');
                 $test3 = array_column($data3, '0');
-                $combined = array_diff($test1,$test3,$test2);
+                $result=array_merge($test1,$test3);
+                $combined = array_diff($result,$test2);
             return response()->json($combined);
         }
 

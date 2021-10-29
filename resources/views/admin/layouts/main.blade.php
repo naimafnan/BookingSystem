@@ -33,6 +33,15 @@
           <header class="header-top" header-theme="light">
               <div class="container-fluid">
                   <div class="d-flex justify-content-between">
+                    <div class="top-menu d-flex align-items-center">
+                      <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
+                      <div class="header-search">
+                          <div class="input-group">
+                              <span class="input-group-addon search-close"><i class="ik ik-x"></i></span>
+                              <input type="text" class="form-control">
+                          </div>
+                      </div>
+                  </div>
                       <div class="top-menu d-flex align-items-center">
                       </div>
                       <div class="dropdown">
@@ -63,6 +72,7 @@
               <div class="app-sidebar colored">
                   <div class="sidebar-header">
                     <a href="" style="color: white">Welcome, {{ ucfirst(Auth::user()->name) }}</a>
+                    <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
                   </div>
                   
                   <div class="sidebar-content">
@@ -76,8 +86,8 @@
                                 <div class="nav-lavel">Create Appointment</div>
                                     <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Appointment Time</span></a>
                                     <div class="submenu-content">
-                                        <a href="{{ route('doctor.create') }}" class="menu-item">Schedule Timings</a>
-                                        <a href="" class="menu-item">Check</a>
+                                        <a href="{{ route('doctor.index') }}" class="menu-item">Schedule Timings</a>
+                                        {{-- <a href="" class="menu-item">Check</a> --}}
                                     </div>
                                 </div>
                               @endif

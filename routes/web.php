@@ -52,6 +52,8 @@ Route::resource('/doctor', doctorController::class);
 Route::resource('/admin', AdminController::class);
 
 Route::resource('/patientToday',PatientListTodayController::class);
+
+Route::post('/doctor-update',[doctorController::class,'update'])->name('schedule');
 //checkout
 // Route::
 

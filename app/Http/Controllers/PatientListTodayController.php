@@ -16,7 +16,7 @@ class PatientListTodayController extends Controller
     {
         //$bookings =  Booking::where('date',date('Y-m-d'))->where('status',1)->where('doctor_id',auth()->user()->id)->get();
 		// return view('prescription.index',compact('bookings'));
-        $appointments=Appointment::where('date',date('Y-m-d'))->where('status',1)->where('doctor_id',auth()->user()->id)->get();
+        $appointments=Appointment::where('date',date('Y-m-d'))->where('status',0)->where('doctor_id',auth()->user()->id)->get();
         return view("doctor.patientList",compact('appointments'));
     }
 

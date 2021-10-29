@@ -8,7 +8,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>Patients</h6>
-                                <h2>{{app\Models\User::where('role_id',3)->count()}}</h2>
+                                <h2>{{app\Models\Appointment::where('date',date('Y-m-d'))->where('status',0)->where('doctor_id',auth()->user()->id)->count()}}</h2>
                             </div>
                             <div class="icon">
                                 <i class="ik ik-users"></i>
