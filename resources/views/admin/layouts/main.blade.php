@@ -45,23 +45,14 @@
                       <div class="top-menu d-flex align-items-center">
                       </div>
                       <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <strong>{{ ucfirst(Auth::user()->name) }}</strong>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ url('/user-profile') }}">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item " href="{{ url('/user-profile') }}">
                               <i class="ik ik-users dropdown-icon"></i>
                               Profile
                             </a>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                              onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();">
-                              <i class="ik ik-power dropdown-icon"></i>      
-                              {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                            </form>
                         </div>
                       </div>
                   </div>
@@ -94,9 +85,10 @@
                               @if (auth()->check()&& auth()->user()->role->name === 'doctor')
                                 <div class="nav-lavel">Patients</div>
                                 <div class="nav-item has-sub">
-                                    <a href="#"><i class="ik ik-box"></i><span>Patient List</span></a>
+                                    <a href="#"><i class="ik ik-box"></i><span>Patient</span></a>
                                     <div class="submenu-content">
                                         <a href="{{ route('patientToday.index') }}" class="menu-item">Today</a>
+                                        <a href="{{ route('allPatient.index') }}" class="menu-item">All</a>
                                     </div>
                                 </div>
                               @endif
@@ -113,7 +105,7 @@
                               @if (auth()->check()&& auth()->user()->role->name === 'Admin')
                                 <div class="nav-lavel">Patients List</div>
                                 <div class="nav-item has-sub">
-                                    <a href="#"><i class="ik ik-box"></i><span>Patient List</span></a>
+                                    <a href="#"><i class="ik ik-box"></i><span>Patient</span></a>
                                     <div class="submenu-content">
                                         <a href="" class="menu-item">Today</a>
                                     </div>
@@ -135,7 +127,7 @@
               </div>
               <footer class="footer">
                 <div class="w-100 clearfix">
-                    <span class="text-center text-sm-left d-md-inline-block"><p>Copyright 2021 © <strong>FOMEMA Sdn. Bhd. </strong>All Rights Reserved.</p></span>
+                    <span class="text-center text-sm-left d-md-inline-block"><p>Copyright 2021 © <strong>FOMEMA IOT Sdn. Bhd. </strong>All Rights Reserved.</p></span>
                 </div>
               </footer>
           </div>

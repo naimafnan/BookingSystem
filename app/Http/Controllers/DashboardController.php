@@ -15,7 +15,7 @@ class DashboardController extends Controller
     	if(Auth::user()->role->name=='patient'){
     		return view('home');
     	}
-        $appointments=Appointment::where('doctor_id',auth()->user()->id)->get();
+        $appointments=Appointment::where('date',date('Y-m-d'))->where('status',0)->where('doctor_id',auth()->user()->id)->get();
     	return view('admin.doctor.dashboard',compact('appointments'));
     }
 }

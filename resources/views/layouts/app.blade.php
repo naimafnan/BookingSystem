@@ -33,10 +33,11 @@
 <body>
     <div id="id">
         <nav class="navbar navbar-expand-md navbar-light">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/img/fomema.png" alt="" width="156" height="100">
-                </a>
+            <div class="container logo">
+                    <a class="navbar-brand" href="">
+                        <img src="/img/fomemaIOT.png" class="logo" id="logo" alt="">
+                    </a>
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -88,7 +89,7 @@
                                 </li>
                             @endif --}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Contact Us</a>
+                                <a class="nav-link" href="">Contact Us</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -223,6 +224,7 @@
             display: inline-block;
             min-width: 60px;
         }  
+        
         
     </style>
 </body>

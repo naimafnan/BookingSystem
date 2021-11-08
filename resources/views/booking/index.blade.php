@@ -21,11 +21,15 @@
                             <h5 class="card-text">{{ $appointments->docApp->cli_name }}</h5>
                             <h6 class="card-title text-black-50">Status</h6>
                                 @if($appointments->status==0)
-                                <h5 class="">Not visited</h5>
+                                    <h5 class="">Not visited</h5>
                                 @else 
-                                <h5 class=""> Checked</h5>
+                                    <h5 class=""> Checked</h5>
                                 @endif
-                        
+                                @if ($appointments->status==1)
+                                    <h6 class="card-title text-black-50">Prescription</h6>
+                                    <h5 class="card-text">{{ $appointments->prescription }}</h5>
+                                @endif
+                            
                     </div>
                 </div>
             </div>

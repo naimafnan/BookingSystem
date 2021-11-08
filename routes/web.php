@@ -5,6 +5,8 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\doctorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientListTodayController;
+use App\Http\Controllers\listAllPatientController;
+use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -52,8 +54,10 @@ Route::resource('/doctor', doctorController::class);
 Route::resource('/admin', AdminController::class);
 
 Route::resource('/patientToday',PatientListTodayController::class);
+Route::post('/prescription',[PatientListTodayController::class,'update'])->name('prescription');
+
+Route::resource('/allPatient',listAllPatientController::class);
+Route::post('/allPatientPrescription',[listAllPatientController::class,'update'])->name('allPrescription');
 
 Route::post('/doctor-update',[doctorController::class,'update'])->name('schedule');
-//checkout
-// Route::
 

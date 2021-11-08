@@ -10066,3 +10066,13 @@ h3 {
     display: none;
   }
 }
+@media only screen and (max-width: 500px) {
+  #logo{
+      height: auto;
+      width: 120px;
+  } 
+  #doc{
+    height: 2px;
+    width: 2px;
+  }
+  }

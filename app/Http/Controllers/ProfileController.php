@@ -16,7 +16,6 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
         return view('User.profile');
     }
 
@@ -76,7 +75,6 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user_id=Auth::user()->id;
-
         $user = User::find($user_id);
         $user->name=$request->name;
         $user->email=$request->email;

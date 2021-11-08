@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
 use Illuminate\Http\Request;
-
-class PatientListTodayController extends Controller
+use App\Models\Appointment;
+class listAllPatientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-        $appointments=Appointment::where('date',date('Y-m-d'))->where('doctor_id',auth()->user()->id)->get();
-        return view("doctor.patientList",compact('appointments'));
+        //
+        $dates=$request->input('date');
+        $appointments=Appointment::where('doctor_id',auth()->user()->id)->where('date','>',date('Y-m-d'))->get();
+        return view('doctor.listAllPatient',compact('appointments'));
     }
 
     /**
@@ -38,7 +38,6 @@ class PatientListTodayController extends Controller
     public function store(Request $request)
     {
         //
-        
     }
 
     /**
@@ -70,18 +69,9 @@ class PatientListTodayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        
-        $user_id=$request->input('user_id');
-        $times=$request->input('time');
-        $dates=$request->input('date');
-        // $appointments = Appointment::where('user_id',$user_id)->where('status',0)->get();
-        $appointments=Appointment::where('user_id',$user_id)->where('time',$times)->where('date',$dates)->first();
-        $appointments->prescription=$request->prescription;
-        $appointments->status=1;
-        $appointments->update();
-        return redirect()->back()->with('msg','Prescription has been created');
+        //
     }
 
     /**

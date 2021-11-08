@@ -62,22 +62,22 @@
                                 <div class="col-md-6 mb-3">
                                     <select name="state" id="STATE" class="form-control" onchange="change_state();">
                                         <option value="">Select State</option>
-                                        <option value="Johor">JOHOR</option>
-                                        <option value="Kedah">KEDAH</option>
-                                        <option value="Kelantan">KELANTAN</option>
-                                        <option value="Kuala Lumpur">KUALA LUMPUR</option>
-                                        <option value="Melaka">MELAKA</option>
-                                        <option value="Negeri Sembilan">NEGERI SEMBILAN</option>
-                                        <option value="Pahang">PAHANG</option>
-                                        <option value="Perak">PERAK</option>
-                                        <option value="Perlis">PERLIS</option>
-                                        <option value="Pulau Pinang">PULAU PINANG</option>
-                                        <option value="Sabah">SABAH</option>
-                                        <option value="Sarawak">SARAWAK</option>
-                                        <option value="Terengganu">TERENGGANU</option>
-                                        <option value="Selangor">SELANGOR</option>
-                                        <option value="Putrajaya">PUTRAJAYA</option>
-                                        <option value="Labuan">LABUAN</option>
+                                        <option value="Johor" {{ auth()->user()->state == "Johor" ? 'selected' : '' }}>JOHOR</option>
+                                        <option value="Kedah" {{ auth()->user()->state == "Kedah" ? 'selected' : '' }}>KEDAH</option>
+                                        <option value="Kelantan" {{ auth()->user()->state == "Kelantan" ? 'selected' : '' }}>KELANTAN</option>
+                                        <option value="Kuala Lumpur" {{ auth()->user()->state == "Kuala Lumpur" ? 'selected' : '' }}>KUALA LUMPUR</option>
+                                        <option value="Melaka" {{ auth()->user()->state == "Melaka" ? 'selected' : '' }}>MELAKA</option>
+                                        <option value="Negeri Sembilan" {{ auth()->user()->state == "Negeri Sembilan" ? 'selected' : '' }}>NEGERI SEMBILAN</option>
+                                        <option value="Pahang" {{ auth()->user()->state == "Pahang" ? 'selected' : '' }}>PAHANG</option>
+                                        <option value="Perak" {{ auth()->user()->state == "Perak" ? 'selected' : '' }}>PERAK</option>
+                                        <option value="Perlis" {{ auth()->user()->state == "Perlis" ? 'selected' : '' }}>PERLIS</option>
+                                        <option value="Pulau Pinang" {{ auth()->user()->state == "Pulau Pinang" ? 'selected' : '' }}>PULAU PINANG</option>
+                                        <option value="Sabah" {{ auth()->user()->state == "Sabah" ? 'selected' : '' }}>SABAH</option>
+                                        <option value="Sarawak" {{ auth()->user()->state == "Sarawak" ? 'selected' : '' }}>SARAWAK</option>
+                                        <option value="Terengganu" {{ auth()->user()->state == "Terengganu" ? 'selected' : '' }}>TERENGGANU</option>
+                                        <option value="Selangor" {{ auth()->user()->state == "Selangor" ? 'selected' : '' }}>SELANGOR</option>
+                                        <option value="Putrajaya" {{ auth()->user()->state == "Putrajaya" ? 'selected' : '' }}>PUTRAJAYA</option>
+                                        <option value="Labuan" {{ auth()->user()->state == "Labuan" ? 'selected' : '' }}>LABUAN</option>
                                     </select>
                                 </div>
                             </div>
@@ -89,8 +89,8 @@
                                     <div class="col-md-6 mb-3">
                                         <select name="service" id="service" class="form-control" onchange="change_state();">
                                             <option value="">Select Service</option>
-                                            <option value="Fomema Examinations">Fomema Examinations</option>
-                                            <option value="X-Ray">X-Ray</option>
+                                            <option value="Fomema Examinations" {{ auth()->user()->doctorDetails->doc_service == "Fomema Examinations" ? 'selected' : '' }}>Fomema Examinations</option>
+                                            <option value="X-Ray" {{ auth()->user()->doctorDetails->doc_service == "X-Ray" ? 'selected' : '' }} >X-Ray</option>
                                             {{-- listed service for each role --}}
                                         </select>
                                     </div>

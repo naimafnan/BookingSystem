@@ -22,11 +22,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Session::has('msg'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{ Session::get('msg') }}
-                                    </div>
-                                @endif
                                 @forelse ($appointments as $appointment)
                                     <tr>
                                         <td><img src="\img\user1.png" class="table-user-thumb" alt=""></td>
@@ -49,7 +44,7 @@
                                                 @include('admin.doctor.prescription')
                                                 @else
                                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal{{ $appointment->user_id }}" >View prescription</button>
-                                                @include('admin.doctor.prescriptionDetails')
+                                                {{-- @include('') --}}
                                                 @endif
                                             </div>
                                         </td>
