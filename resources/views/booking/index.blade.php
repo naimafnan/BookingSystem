@@ -22,8 +22,10 @@
                             <h6 class="card-title text-black-50">Status</h6>
                                 @if($appointments->status==0)
                                     <h5 class="">Not visited</h5>
-                                @else 
-                                    <h5 class=""> Checked</h5>
+                                @elseif($appointments->status==2)
+                                    <h5>Cancelled</h5>
+                                @else
+                                    <h5>Checked</h5>
                                 @endif
                                 @if ($appointments->status==1)
                                     <h6 class="card-title text-black-50">Prescription</h6>

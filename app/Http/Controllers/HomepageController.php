@@ -213,6 +213,7 @@ class HomepageController extends Controller
 
             $time = Appointment::select('time')
             ->where('doctor_id',$request->doctor_id)
+            ->where('status','!=',2)
             ->whereDate('date',$request->datepicker)
             ->get();
             

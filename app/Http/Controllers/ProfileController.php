@@ -102,7 +102,7 @@ class ProfileController extends Controller
         // $user->push();
         $user->save();
 
-        $doctor = doctor::where('user_id',$user_id)->first();
+        $doctor = doctor::where('user_id',$user_id)->where('id',$user_id)->first();
         $doctor->cli_name=$request->clinicname ?? '';
         $doctor->doc_specialist=$request->specialist ?? '';
         $doctor->doc_service=$request->service ?? '';

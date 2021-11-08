@@ -6,6 +6,7 @@ use App\Http\Controllers\doctorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientListTodayController;
 use App\Http\Controllers\listAllPatientController;
+use App\Http\Controllers\myBookingController;
 use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,8 @@ Route::resource('/user-profile',ProfileController::class);
 Route::post('/user-profile-update',[ProfileController::class,'update']);
 
 //get booking details
-Route::get('/myBooking',[HomepageController::class,'myBooking']);
+Route::get('/myBooking',[myBookingController::class,'index']);
+Route::post('/booking-cancel',[myBookingController::class,'update']);
 Route::get('/BookingDetails/{appointmentsId}',[HomepageController::class,'BookingDetails']);
 
 Route::post('/getTime',[HomepageController::class,'getTime'])->name('getTime');

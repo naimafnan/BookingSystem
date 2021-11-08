@@ -36,21 +36,27 @@
                                         <td>{{ $appointment->date }}</td>
                                         @if ($appointment->status==0)
                                             <td>not checked</td>
+                                        @elseif ($appointment->status==2)
+                                            <td>Cancelled</td>
                                         @else
-                                        <td>checked</td>
+                                            <td>checked</td>
                                         @endif
                                         <td>
                                             <div class="table-actions">
                                                 
-                                               @if($appointment->prescription==null)
+                                            @if($appointment->prescription==null && $appointment->status!=2)
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ $appointment->user_id }}">
                                                     Write prescription
                                                 </button>
                                                 @include('admin.doctor.prescription')
-                                                @else
+                                            @elseif ($appointment->status==2)
+                                                <button type="button" class="btn btn-danger">
+                                                    Cancelled
+                                                </button>
+                                            @else
                                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal{{ $appointment->user_id }}" >View prescription</button>
                                                 @include('admin.doctor.prescriptionDetails')
-                                                @endif
+                                            @endif
                                             </div>
                                         </td>
                                     </tr>
