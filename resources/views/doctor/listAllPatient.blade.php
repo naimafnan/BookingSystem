@@ -16,12 +16,17 @@
                                     <th>Email</th>
                                     <th>Time</th>
                                     <th>Date</th>
-                                    <th>status</th>
-                                    <th class="nosort">&nbsp;</th>
+                                    <th>Status</th>
+                                    <th class="nosort">Actions</th>
                                     <th class="nosort">&nbsp;</th> 
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (Session::has('msg'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ Session::get('msg') }}
+                                    </div>
+                                @endif
                                 @forelse ($appointments as $appointment)
                                     <tr>
                                         <td><img src="\img\user1.png" class="table-user-thumb" alt=""></td>
@@ -38,25 +43,29 @@
                                         @endif
                                         <td>
                                             <div class="table-actions">
-                                                
-                                               @if($appointment->prescription==null && $appointment->status!=2)
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ $appointment->user_id }}">
-                                                    Write prescription
-                                                </button>
-                                                @include('admin.doctor.prescription')
-                                                @elseif ($appointment->status==2)
-                                                    <button type="button" class="btn btn-danger">
-                                                        Cancelled
+                                                <form action="{{ url('/allPatient-update') }}"  method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="user_id" value="{{ $appointment->user_id }}">
+                                                    <input type="hidden" name="time" value="{{ $appointment->time }}">
+                                                    <input type="hidden" name="date" value="{{ $appointment->date }}">
+                                                    <button type="submit" class="btn btn-success mb-2" style="float: right">
+                                                        <i class="fas fa-check"> Attend</i>
                                                     </button>
-                                                @else
-                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal{{ $appointment->user_id }}" >View prescription</button>
-                                                {{-- @include('') --}}
-                                                @endif
+                                                </form>
+                                                <form action="{{ url('/allPatient-cancel') }}"  method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="user_id" value="{{ $appointment->user_id }}">
+                                                    <input type="hidden" name="time" value="{{ $appointment->time }}">
+                                                    <input type="hidden" name="date" value="{{ $appointment->date }}">
+                                                    <button type="submit" class="btn btn-danger" style="float: left">
+                                                        <i class="fas fa-times" style="display: inline"> Cancel</i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
-                                    <h5>You have no appointments Today.</h5>
+                                    <h5>You have no upcoming appointments.</h5>
                                 @endforelse
                             </tbody>
                         </table>

@@ -88,7 +88,8 @@
                                     <a href="#"><i class="ik ik-box"></i><span>Patient</span></a>
                                     <div class="submenu-content">
                                         <a href="{{ route('patientToday.index') }}" class="menu-item">Today</a>
-                                        <a href="{{ route('allPatient.index') }}" class="menu-item">All</a>
+                                        <a href="{{ route('allPatient.index') }}" class="menu-item">Upcoming</a>
+                                        <a href="{{ route('expired.index') }}" class="menu-item">Expired</a>
                                     </div>
                                 </div>
                               @endif

@@ -77,6 +77,7 @@ class RegisterController extends Controller
 
         if(strtoupper($role->name) == 'DOCTOR'){
             $doctors = new doctor();
+            $doctors->id=$users->id;
             $doctors->user_id = $users->id;
             $doctors->save();
         }

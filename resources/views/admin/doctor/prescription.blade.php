@@ -12,8 +12,8 @@
                 <div class="modal-body" id="app">
                     <input type="hidden" name="user_id" value="{{$appointment->user_id}}">
                     <input type="hidden" name="date" value="{{$appointment->prescription}}">
-                    <input type="text" name="time" value="{{$appointment->time}}">
-                    <input type="text" name="date" value="{{$appointment->date}}">
+                    <input type="hidden" name="time" value="{{$appointment->time}}">
+                    <input type="hidden" name="date" value="{{$appointment->date}}">
                     <div class="form-group">
                         {{-- <label>Feedback</label> --}}
                         <textarea name="prescription" class="form-control" placeholder="Feedback" required="">{{ $appointment->prescription }}</textarea>

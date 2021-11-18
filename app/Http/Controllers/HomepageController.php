@@ -56,12 +56,14 @@ class HomepageController extends Controller
         // }
         $date=Carbon::parse($request->dateText)->format('Y-m-d');
         $time=Carbon::parse($request->time)->format('H:i:s'); 
+        $prescription=$request->reasons;
         Appointment::create([
             'user_id'=>auth()->user()->id,
             'doctor_id'=>$request->doctorId,
             'time'=>$time,
             'date'=>$date,
             'status'=>0,
+            'prescription'=>$prescription,
         ]);
         //send email notification
         $appointment=Appointment::all();
@@ -154,7 +156,9 @@ class HomepageController extends Controller
             //get all data from db
             // $reserves=doctor::all();
             $reserves=User::join("doctors","doctors.user_id","=","users.id")
-            ->where('role_id','=','2')->get(); 
+            ->where('role_id','=','2')
+            ->where('status','=','1')
+            ->get(); 
             if($keyword){
                 $reserves=User::join("doctors","doctors.user_id","=","users.id")
                 ->Where("users.name","LIKE","%".$keyword."%")

@@ -1,22 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+use App\Models\Appointment;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class PatientListExpiredController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //$reserves=User::join("doctors","doctors.user_id","=","users.id")
-        // ->where('role_id','=','2')
-        $users  = User::where('role_id','=',2)->get();
-        return view('admin.doctor.index',compact('users'));
+        //
+        $dates=$request->input('date');
+        $appointments=Appointment::where('doctor_id',auth()->user()->id)->where('date','<',date('Y-m-d'))->get();
+        // $appointments=Appointment::where('doctor_id',auth()->user()->id)->where('created_at','<',Carbon::parse('-24 hours'))->get();
+        return view('doctor.patientListExpired',compact('appointments'));
     }
 
     /**
@@ -27,7 +29,6 @@ class AdminController extends Controller
     public function create()
     {
         //
-        return view('admin.doctor.create');
     }
 
     /**

@@ -119,8 +119,9 @@
                             <input type="hidden" name="docState" value="{{ $doctor->mydoctor->state }}"> 
                             <input type="hidden" name="start_time" value="{{ $doctor->start_time }}"> 
                             <input type="hidden" name="end_time" value="{{ $doctor->end_time }}"> 
-                            <input type="hidden" name="doc_email" value="{{ $doctor->mydoctor->email }}"> 
-                            
+                            <input type="hidden" name="doc_email" value="{{ $doctor->mydoctor->email }}">
+
+                            <input class="form-control mb-2" name="reasons" placeholder="Remarks" required>
                             
                             @if (Auth::check())
                                 <button type="submit" class="btn btn-success btn-lg main-blink">Proceed</button> 

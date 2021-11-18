@@ -69,9 +69,29 @@ class listAllPatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user_id=$request->input('user_id');
+        $times=$request->input('time');
+        $dates=$request->input('date');
+        // $appointments = Appointment::where('user_id',$user_id)->where('status',0)->get();
+        $appointments=Appointment::where('user_id',$user_id)->where('time',$times)->where('date',$dates)->first();
+        // $appointments->prescription=$request->prescription;
+        $appointments->status=1;
+        $appointments->update();
+        return redirect()->back()->with('msg','This patient has attended the appointment');
+    }
+    public function cancelBooking(Request $request)
+    {
+        $user_id=$request->input('user_id');
+        $times=$request->input('time');
+        $dates=$request->input('date');
+        // $appointments = Appointment::where('user_id',$user_id)->where('status',0)->get();
+        $appointments=Appointment::where('user_id',$user_id)->where('time',$times)->where('date',$dates)->first();
+        // $appointments->prescription=$request->prescription;
+        $appointments->status=2;
+        $appointments->update();
+        return redirect()->back()->with('msg','You have cancel this appointment');
     }
 
     /**

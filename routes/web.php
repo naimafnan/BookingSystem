@@ -6,6 +6,7 @@ use App\Http\Controllers\doctorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientListTodayController;
 use App\Http\Controllers\listAllPatientController;
+use App\Http\Controllers\PatientListExpiredController;
 use App\Http\Controllers\myBookingController;
 use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
@@ -27,6 +28,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 //route for admin and doctor
 Route::get('/dashboard',[\App\Http\Controllers\DashboardController::class,'index']);
 //display list doctor
@@ -56,10 +59,14 @@ Route::resource('/doctor', doctorController::class);
 Route::resource('/admin', AdminController::class);
 
 Route::resource('/patientToday',PatientListTodayController::class);
-Route::post('/prescription',[PatientListTodayController::class,'update'])->name('prescription');
+Route::post('/patientToday-update',[PatientListTodayController::class,'update']);
+Route::post('/patientToday-cancel',[PatientListTodayController::class,'cancelBooking']);
 
 Route::resource('/allPatient',listAllPatientController::class);
-Route::post('/allPatientPrescription',[listAllPatientController::class,'update'])->name('allPrescription');
+Route::post('/allPatient-update',[listAllPatientController::class,'update']);
+Route::post('/allPatient-cancel',[listAllPatientController::class,'cancelBooking']);
+
+Route::resource('/expired',PatientListExpiredController::class);
 
 Route::post('/doctor-update',[doctorController::class,'update'])->name('schedule');
 

@@ -10,7 +10,7 @@
         <form class="form-inline justify-content-center" action="{{ url('/search') }}" method="GET" role="search">
             {{csrf_field()}}
             <select class="form-control mb-2 mr-2" id="service" name="service">
-                <option value="">Service</option>
+                <option value="" disabled>Service</option>
                 <optgroup label="Doctor"><!-- Use "select" to create object -->
                     <option value="Fomema Examinations">Fomema Examinations</option>
                     <option value="X-ray">X-ray</option>
@@ -74,3 +74,35 @@
     {{-- </div> --}}
 </div>
 @endsection
+{{-- 
+@push('script')
+<script>
+    $(document).ready(function() {
+    $('#category').on('change', function() {
+       var categoryID = $(this).val();
+       if(categoryID) {
+           $.ajax({
+               url: '/getCourse/'+categoryID,
+               type: "GET",
+               data : {"_token":"{{ csrf_token() }}"},
+               dataType: "json",
+               success:function(data)
+               {
+                 if(data){
+                    $('#course').empty();
+                    $('#course').append('<option hidden>Choose Course</option>'); 
+                    $.each(data, function(key, course){
+                        $('select[name="course"]').append('<option value="'+ key +'">' + course.name+ '</option>');
+                    });
+                }else{
+                    $('#course').empty();
+                }
+             }
+           });
+       }else{
+         $('#course').empty();
+       }
+    });
+    });
+</script>
+@endpush --}}
